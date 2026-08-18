@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Create simple printable calendars for any month or date range. Add holidays, events, notes, goals and reminders.">
+
+    <title>Simple Printable Calendar Generator</title>
+    <link id="theme-stylesheet" rel="stylesheet" href="css/themes/theme-original-lighter.css">
+    <link id="theme-stylesheet" rel="stylesheet" href="css/calendar-shed.css">
+
+
+
+ 
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="/" class="brand">
+
+                <span class="brand-mark">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                        <rect x="3" y="5" width="18" height="16" rx="2">
+                        </rect>
+
+                        <line x1="8" y1="3" x2="8" y2="7">
+                        </line>
+
+                        <line x1="16" y1="3" x2="16" y2="7">
+                        </line>
+
+                        <line x1="3" y1="10" x2="21" y2="10">
+                        </line>
+
+                    </svg>
+
+                </span>
+
+                <span class="brand-name">
+                    Calendar Shed
+                </span>
+
+            </a>
+            <button id="theme-cycle" class="nav-button" type="button" aria-label="Cycle theme">Theme</button>
+
+            <nav class="main-nav">
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#themes">
+                    Themes
+                </a>
+
+                <a href="#why-paper">
+                    Why paper?
+                </a>
+
+                <button id="create-calendar-button" class="nav-button">
+
+                    Create Calendar
+
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="hero" id="calendar">
+
+            <div class="container">
+
+
+                <div class="hero-heading">
+
+                    <p class="section-label">
+                        Simple. Printable. Yours.
+                    </p>
+
+                    <h1>
+                        Make a calendar.
+                        <span>Print it. Done.</span>
+                    </h1>
+
+                    <p>
+                        Create a Calendar Shed for any month or
+                        date range. Add holidays, events, notes,
+                        goals and reminders.
+                    </p>
+
+                </div>
+
+
+                <!-- =============================================
+                     CALENDAR BUILDER
+                     ============================================= -->
+
+                <div id="builder-form" class="builder">
+
+
+                    <!-- =========================================
+                         CONTROLS
+                         ========================================= -->
+
+                    <div class="builder-controls">
+
+                        <h2 class="builder-title">
+                            Create your calendar
+                        </h2>
+
+                        <p class="builder-intro">
+                            Choose your dates and options.
+                            You can customize the calendar later.
+                        </p>
+
+
+                        <div class="form-group">
+
+                            <label class="form-label" for="startDate">
+
+                                Start month
+
+                            </label>
+
+                            <select id="startDate" class="form-control">
+
+                                <option>
+                                    August 2026
+                                </option>
+
+                                <option>
+                                    September 2026
+                                </option>
+
+                                <option>
+                                    October 2026
+                                </option>
+
+                                <option>
+                                    November 2026
+                                </option>
+
+                                <option>
+                                    December 2026
+                                </option>
+
+                                <option>
+                                    January 2027
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="form-label" for="endDate">
+
+                                End month
+
+                            </label>
+
+                            <select id="endDate" class="form-control">
+
+                                <option>
+                                    August 2026
+                                </option>
+
+                                <option>
+                                    September 2026
+                                </option>
+
+                                <option>
+                                    October 2026
+                                </option>
+
+                                <option>
+                                    November 2026
+                                </option>
+
+                                <option>
+                                    December 2026
+                                </option>
+
+                                <option>
+                                    January 2027
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <span class="form-label">
+                                Week starts on
+                            </span>
+
+                            <div class="radio-group">
+
+                                <label class="radio-option">
+
+                                    <input type="radio" name="weekStart" checked>
+
+                                    Monday
+
+                                </label>
+
+
+                                <label class="radio-option">
+
+                                    <input type="radio" name="weekStart">
+
+                                    Sunday
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <span class="form-label">
+                                Calendar options
+                            </span>
+
+                            <label class="checkbox-option">
+
+                                <input type="checkbox" checked>
+
+                                <span>
+                                    Include public holidays
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                        <!-- Controls Matrix -->
+                        <div class="control-grid" id="holiday-location-box">
+                            <div class="field-group">
+                                <label for="start-date">Start Month</label>
+                                <input type="month" id="start-date" value="2026-09">
+                            </div>
+
+                            <div class="field-group">
+                                <label for="end-date">End Month</label>
+                                <input type="month" id="end-date" value="2026-12">
+                            </div>
+
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="include-holidays" checked>
+                            <label for="include-holidays">Include Statutory Holidays in Day Cells</label>
+                        </div>
+                        <div class="control-grid" id="holiday-location-box">
+
+                            <!-- Country Select -->
+                            <div class="field-group">
+                                <label for="country-select" id="country-label">Country</label>
+                                <select id="country-select">
+                                    <option value="CA" selected>Canada (CA)</option>
+                                    <option value="US">United States (US)</option>
+                                    <option value="GB">United Kingdom (GB)</option>
+                                    <option value="AU">Australia (AU)</option>
+                                </select>
+                            </div>
+
+                            <!-- Province / State Select (Cascading based on Country) -->
+                            <div class="field-group">
+                                <label for="region-select" id="region-label">Province / Territory</label>
+                                <select id="region-select">
+                                    <!-- Dynamically populated via JS -->
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <div id="button-group">
+
+                            <button type="button" class="builder-button">
+
+                                Create Calendar
+
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                    <line x1="5" y1="12" x2="19" y2="12">
+                                    </line>
+
+                                    <polyline points="12 5 19 12 12 19">
+                                    </polyline>
+
+                                </svg>
+
+                            </button>
+
+
+                            <p class="builder-note">
+                                Free to use. No account required.
+                            </p>
+
+                            <button id="more-options-button" class="builder-button cta-button">More options</button>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =========================================
+                         PREVIEW
+                         ========================================= -->
+
+                    <div class="builder-preview">
+
+                        <div class="preview-toolbar">
+
+                            <span class="preview-label">
+                                Live preview
+                            </span>
+
+                            <span class="preview-size">
+                                Letter · Landscape
+                            </span>
+
+                        </div>
+
+
+                        <div class="calendar-paper">
+
+
+                            <div class="calendar-header">
+
+                                <h2 class="calendar-month">
+                                    August
+                                </h2>
+
+                                <span class="calendar-year">
+                                    2026
+                                </span>
+
+                            </div>
+
+
+                            <div class="calendar-grid">
+
+
+                                <span class="day-heading">
+                                    MON
+                                </span>
+
+                                <span class="day-heading">
+                                    TUE
+                                </span>
+
+                                <span class="day-heading">
+                                    WED
+                                </span>
+
+                                <span class="day-heading">
+                                    THU
+                                </span>
+
+                                <span class="day-heading">
+                                    FRI
+                                </span>
+
+                                <span class="day-heading">
+                                    SAT
+                                </span>
+
+                                <span class="day-heading">
+                                    SUN
+                                </span>
+
+
+                                <!-- Empty -->
+
+                                <div class="calendar-cell empty"></div>
+                                <div class="calendar-cell empty"></div>
+                                <div class="calendar-cell empty"></div>
+                                <div class="calendar-cell empty"></div>
+                                <div class="calendar-cell empty"></div>
+
+
+                                <!-- August 1 -->
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        1
+                                    </span>
+
+                                </div>
+
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        2
+                                    </span>
+
+                                </div>
+
+
+                                <!-- Week -->
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        3
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        4
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        5
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        6
+                                    </span>
+
+                                    <span class="event">
+                                        Project meeting
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        7
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        8
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        9
+                                    </span>
+
+                                </div>
+
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        10
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        11
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        12
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        13
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        14
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        15
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        16
+                                    </span>
+
+                                </div>
+
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        17
+                                    </span>
+
+                                    <span class="event">
+                                        Birthday
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        18
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        19
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        20
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        21
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        22
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        23
+                                    </span>
+
+                                </div>
+
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        24
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        25
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        26
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        27
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        28
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        29
+                                    </span>
+
+                                </div>
+
+                                <div class="calendar-cell weekend">
+
+                                    <span class="date-number">
+                                        30
+                                    </span>
+
+                                </div>
+
+
+                                <div class="calendar-cell">
+
+                                    <span class="date-number">
+                                        31
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Notes -->
+
+                            <div class="preview-bottom">
+
+
+                                <div class="preview-box">
+
+                                    <h3>
+                                        NOTES
+                                    </h3>
+
+                                    <div class="write-line"></div>
+                                    <div class="write-line"></div>
+
+                                </div>
+
+
+                                <div class="preview-box">
+
+                                    <h3>
+                                        GOALS
+                                    </h3>
+
+                                    <div class="write-line"></div>
+                                    <div class="write-line"></div>
+
+                                </div>
+
+
+                                <div class="preview-box">
+
+                                    <h3>
+                                        REMINDERS
+                                    </h3>
+
+                                    <div class="write-line"></div>
+                                    <div class="write-line"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-meta">
+
+                    <span>
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                            <path d="M20 6L9 17l-5-5"></path>
+
+                        </svg>
+
+                        Free to use
+
+                    </span>
+
+
+                    <span>
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                            <rect x="3" y="5" width="18" height="16" rx="2">
+                            </rect>
+
+                        </svg>
+
+                        No account required
+
+                    </span>
+
+
+                    <span>
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                            <path d="M6 9V2h12v7"></path>
+
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
+                            </path>
+
+                            <rect x="6" y="14" width="12" height="8">
+                            </rect>
+
+                        </svg>
+
+                        Print or download PDF
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FEATURE STRIP
+             ===================================================== -->
+
+        <section class="feature-strip">
+
+            <div class="container feature-strip-inner">
+
+
+                <span class="feature-strip-item">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                        <path d="M20 6L9 17l-5-5">
+                        </path>
+
+                    </svg>
+
+                    Any month
+
+                </span>
+
+
+                <span class="strip-divider"></span>
+
+
+                <span class="feature-strip-item">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                        <rect x="3" y="5" width="18" height="16" rx="2">
+                        </rect>
+
+                    </svg>
+
+                    Any date range
+
+                </span>
+
+
+                <span class="strip-divider"></span>
+
+
+                <span class="feature-strip-item">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                        <path d="M6 9V2h12v7"></path>
+
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
+                        </path>
+
+                    </svg>
+
+                    Letter size
+
+                </span>
+
+
+                <span class="strip-divider"></span>
+
+
+                <span class="feature-strip-item">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                        <path d="M5 12h14"></path>
+
+                        <path d="M12 5l7 7-7 7"></path>
+
+                    </svg>
+
+                    Print-ready PDF
+
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             WHY PAPER
+             ===================================================== -->
+
+        <section class="paper-section" id="why-paper">
+
+            <div class="container paper-grid">
+
+
+                <div class="paper-content">
+
+                    <p class="section-label">
+                        Sometimes paper is better
+                    </p>
+
+                    <h2>
+                        Put your plans somewhere you can see them.
+                    </h2>
+
+                    <p>
+                        Digital calendars are excellent for
+                        appointments, notifications and keeping
+                        everything synchronized.
+                    </p>
+
+                    <p>
+                        But sometimes you just want something
+                        you can print, write on and stick to the wall.
+                    </p>
+
+
+                    <ul class="paper-list">
+
+                        <li>
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M20 6L9 17l-5-5">
+                                </path>
+
+                            </svg>
+
+                            Plenty of room to write
+
+                        </li>
+
+
+                        <li>
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M20 6L9 17l-5-5">
+                                </path>
+
+                            </svg>
+
+                            Clean, printer-friendly design
+
+                        </li>
+
+
+                        <li>
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M20 6L9 17l-5-5">
+                                </path>
+
+                            </svg>
+
+                            Easy to keep beside your desk or on the wall
+
+                        </li>
+
+
+                        <li>
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M20 6L9 17l-5-5">
+                                </path>
+
+                            </svg>
+
+                            No app or account required
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Paper preview -->
+
+                <div class="paper-visual">
+
+                    <div class="paper-sheet">
+
+                        <div class="paper-sheet-header">
+
+                            <h3>
+                                September 2026
+                            </h3>
+
+                        </div>
+
+
+                        <div class="mini-grid">
+
+                            <span class="heading">M</span>
+                            <span class="heading">T</span>
+                            <span class="heading">W</span>
+                            <span class="heading">T</span>
+                            <span class="heading">F</span>
+                            <span class="heading">S</span>
+                            <span class="heading">S</span>
+
+                            <span></span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+
+                            <span>14</span>
+                            <span>15</span>
+                            <span>16</span>
+                            <span>17</span>
+                            <span>18</span>
+                            <span>19</span>
+                            <span>20</span>
+
+                            <span>21</span>
+                            <span>22</span>
+                            <span>23</span>
+                            <span>24</span>
+                            <span>25</span>
+                            <span>26</span>
+                            <span>27</span>
+
+                            <span>28</span>
+                            <span>29</span>
+                            <span>30</span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+
+                        <div class="paper-lines">
+
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FEATURES
+             ===================================================== -->
+
+        <section class="section features-section" id="features">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+                    <p class="section-label">
+                        Make it useful
+                    </p>
+
+                    <h2 class="section-title">
+                        More than just dates.
+                    </h2>
+
+                    <p class="section-description">
+                        Keep the things that matter visible without
+                        turning your calendar into another complicated
+                        application.
+                    </p>
+
+                </div>
+
+
+                <div class="features">
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <rect x="3" y="5" width="18" height="16" rx="2">
+                                </rect>
+
+                                <line x1="8" y1="3" x2="8" y2="7">
+                                </line>
+
+                                <line x1="16" y1="3" x2="16" y2="7">
+                                </line>
+
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            Events
+                        </h3>
+
+                        <p>
+                            Add birthdays, appointments, vacations,
+                            meetings and important milestones.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M12 2v20"></path>
+
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
+                                </path>
+
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            Public holidays
+                        </h3>
+
+                        <p>
+                            Optionally display public holidays
+                            alongside your own events.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M4 4h16v16H4z"></path>
+
+                                <path d="M8 8h8"></path>
+                                <path d="M8 12h8"></path>
+                                <path d="M8 16h5"></path>
+
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            Notes
+                        </h3>
+
+                        <p>
+                            Keep important information somewhere
+                            you can see it and write on it.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M12 3l2.8 5.7L21 9.6l-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z">
+                                </path>
+
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            Goals
+                        </h3>
+
+                        <p>
+                            Give yourself a short list of things
+                            you'd like to accomplish.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9">
+                                </path>
+
+                                <path d="M10 21h4"></path>
+
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            Reminders
+                        </h3>
+
+                        <p>
+                            Keep a small list of things that
+                            shouldn't slip through the cracks.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <path d="M6 2h12v20H6z"></path>
+
+                                <path d="M9 6h6"></path>
+                                <path d="M9 10h6"></path>
+                                <path d="M9 14h4"></path>
+
+                            </svg>
+
+                        </div>
+
+                        <h3>
+                            Printable PDF
+                        </h3>
+
+                        <p>
+                            Generate a clean PDF designed for
+                            standard home and office printers.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             THEMES
+             ===================================================== -->
+
+        <section class="themes-section" id="themes">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+                    <p class="section-label">
+                        Personalize it
+                    </p>
+
+                    <h2 class="section-title">
+                        Simple doesn't have to mean boring.
+                    </h2>
+
+                    <p class="section-description">
+                        Start with a clean classic calendar.
+                        Add different themes and designs as
+                        the collection grows.
+                    </p>
+
+                </div>
+
+
+                <div class="themes">
+
+
+                    <article class="theme">
+
+                        <div class="theme-preview classic">
+
+                            <strong>
+                                Classic
+                            </strong>
+
+                            <span class="theme-preview-line"></span>
+
+                        </div>
+
+                        <h3>
+                            Classic
+                        </h3>
+
+                        <p>
+                            Clean and minimal.
+                        </p>
+
+                    </article>
+
+
+                    <article class="theme">
+
+                        <div class="theme-preview nature">
+
+                            <strong>
+                                Nature
+                            </strong>
+
+                            <span class="theme-preview-line"></span>
+
+                        </div>
+
+                        <h3>
+                            Nature
+                        </h3>
+
+                        <p>
+                            Subtle natural designs.
+                        </p>
+
+                    </article>
+
+
+                    <article class="theme">
+
+                        <div class="theme-preview seasonal">
+
+                            <strong>
+                                Seasonal
+                            </strong>
+
+                            <span class="theme-preview-line"></span>
+
+                        </div>
+
+                        <h3>
+                            Seasonal
+                        </h3>
+
+                        <p>
+                            Designs inspired by the seasons.
+                        </p>
+
+                    </article>
+
+
+                    <article class="theme">
+
+                        <div class="theme-preview professional">
+
+                            <strong>
+                                Professional
+                            </strong>
+
+                            <span class="theme-preview-line"></span>
+
+                        </div>
+
+                        <h3>
+                            Professional
+                        </h3>
+
+                        <p>
+                            Designed for work and planning.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CTA
+             ===================================================== -->
+
+        <section class="cta-section">
+
+            <div class="container">
+
+                <div class="cta">
+
+                    <h2>
+                        Make your next calendar.
+                    </h2>
+
+                    <p>
+                        Choose your dates, add what matters,
+                        and create something you can actually use.
+                    </p>
+
+                    <a href="#calendar" class="cta-button">
+
+                        Create Your Calendar
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                            <line x1="5" y1="12" x2="19" y2="12">
+                            </line>
+
+                            <polyline points="12 5 19 12 12 19">
+                            </polyline>
+
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+
+            <div class="footer-main">
+
+
+                <div>
+
+                    <div class="footer-brand">
+
+                        <span class="brand-mark">
+
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+                                <rect x="3" y="5" width="18" height="16" rx="2">
+                                </rect>
+
+                                <line x1="8" y1="3" x2="8" y2="7">
+                                </line>
+
+                                <line x1="16" y1="3" x2="16" y2="7">
+                                </line>
+
+                                <line x1="3" y1="10" x2="21" y2="10">
+                                </line>
+
+                            </svg>
+
+                        </span>
+
+                        Calendar Shed
+
+                    </div>
+
+
+                    <p class="footer-description">
+                        A simple tool for creating useful,
+                        printable calendars.
+                    </p>
+
+                </div>
+
+
+                <nav class="footer-nav">
+
+                    <a href="#calendar">
+                        Calendar
+                    </a>
+
+                    <a href="#features">
+                        Features
+                    </a>
+
+                    <a href="#themes">
+                        Themes
+                    </a>
+
+                    <a href="/about">
+                        About
+                    </a>
+
+                    <a href="/privacy">
+                        Privacy
+                    </a>
+
+                    <a href="https://precisionwebsystems.com">
+                        Built by PWS
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 Calendar Shed
+                </span>
+                <span>Powered by <a href="https://precisionwebsystems.com">PWS</a></span>
+                <span>
+                    Simple tools. Useful things.
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg2pdf.js/dist/svg2pdf.min.js"></script>
+<script src="scripts/calendar-shed.js"></script>
+
+</html>

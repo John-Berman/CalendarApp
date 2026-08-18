@@ -118,11 +118,6 @@ async function readCanadaJson() {
     }
 }
 
-// // usage
-// readCanadaJson().then(data => {
-
-//     if (data) console.log('Loaded', data);
-// });
 
 async function readCanadaJson({ startDate, endDate } = {}) {
     try {

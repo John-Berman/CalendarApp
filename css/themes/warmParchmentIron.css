@@ -1,0 +1,29 @@
+:root {
+    --bg: #f5f3ef;
+    --surface: #ffffff;
+    --surface-soft: #eae6e0;
+
+    --text: #2a2725;
+    --text-muted: #736d67;
+
+    --border: #dcd6ce;
+    --border-dark: #b8af02;
+
+    /* Burnt Terracotta / Iron Accent */
+    --accent: #9e472a;
+    --accent-dark: #7a351e;
+    --accent-light: #f8eeeb;
+
+    /* Forest Moss Success */
+    --success: #3b5e48;
+    --success-light: #ebf2ed;
+
+    --max-width: 1180px;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    --shadow-sm: 0 2px 8px rgba(42, 39, 37, .06);
+    --shadow-md: 0 15px 40px rgba(42, 39, 37, .10);
+}

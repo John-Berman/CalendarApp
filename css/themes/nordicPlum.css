@@ -1,0 +1,29 @@
+:root {
+    --bg: #f7f6f8;
+    --surface: #ffffff;
+    --surface-soft: #eceaee;
+
+    --text: #232026;
+    --text-muted: #67626e;
+
+    --border: #d7d3dc;
+    --border-dark: #b3adb9;
+
+    /* Deep Slate Plum Accent */
+    --accent: #5c4d6e;
+    --accent-dark: #423650;
+    --accent-light: #f1edf5;
+
+    /* Muted Cedar Green Success */
+    --success: #4a6b5d;
+    --success-light: #eef4f1;
+
+    --max-width: 1180px;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    --shadow-sm: 0 2px 8px rgba(35, 32, 38, .06);
+    --shadow-md: 0 15px 40px rgba(35, 32, 38, .10);
+}

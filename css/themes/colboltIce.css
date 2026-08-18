@@ -1,0 +1,29 @@
+:root {
+    --bg: #f1f5f9;
+    --surface: #ffffff;
+    --surface-soft: #e2e8f0;
+
+    --text: #0f172a;
+    --text-muted: #475569;
+
+    --border: #cbd5e1;
+    --border-dark: #94a3b8;
+
+    /* Deep Indigo / Cobalt Accent */
+    --accent: #3b82f6;
+    --accent-dark: #1d4ed8;
+    --accent-light: #eff6ff;
+
+    /* Crisp Spruce Green Success */
+    --success: #10b981;
+    --success-light: #ecfdf5;
+
+    --max-width: 1180px;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, .06);
+    --shadow-md: 0 15px 40px rgba(15, 23, 42, .10);
+}
