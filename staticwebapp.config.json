@@ -1,0 +1,16 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif,svg}", "/css/*", "/js/*"]
+  },
+  "routes": [
+    {
+      "route": "/*.html",
+      "redirect": "/{splat}",
+      "statusCode": 301
+    }
+  ],
+  "mimeTypes": {
+    ".json": "text/json"
+  }
+}

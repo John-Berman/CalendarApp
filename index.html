@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Vector Calendar Generator | Free Multi-Month PDF Engine</title>
+    <meta name="description"
+        content="Generate crisp, printable vector monthly calendars for any custom date range. Features regional statutory holiday support via Nager.Date API and instant PDF downloads.">
+
+    <!-- JSON-LD Schema for Programmatic SEO -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Printable Vector Calendar Generator",
+    "url": "https://yourcalendardomain.com",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+    <link rel="stylesheet" href="css/site.css">
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <header>
+        <a href="/" class="brand">
+            <span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48" height="48">
+                    <rect x="2" y="5" width="28" height="24" rx="4" fill="#F3F4F6" stroke="#1F2937" stroke-width="2" />
+                    <path d="M2 9 C2 6.79 3.79 5 6 5 L26 5 C28.21 5 30 6.79 30 9 L30 11 L2 11 Z" fill="#2563EB"
+                        stroke="#1F2937" stroke-width="2" />
+                    <rect x="8" y="2" width="2.5" height="5" rx="1.25" fill="#1F2937" />
+                    <rect x="21.5" y="2" width="2.5" height="5" rx="1.25" fill="#1F2937" />
+                    <rect x="7" y="15" width="4" height="4" rx="1" fill="#9CA3AF" />
+                    <rect x="14" y="15" width="4" height="4" rx="1" fill="#9CA3AF" />
+                    <rect x="21" y="15" width="4" height="4" rx="1" fill="#9CA3AF" />
+                    <rect x="7" y="21" width="4" height="4" rx="1" fill="#9CA3AF" />
+                    <rect x="14" y="21" width="4" height="4" rx="1" fill="#2563EB" />
+                    <rect x="21" y="21" width="4" height="4" rx="1" fill="#9CA3AF" />
+                </svg>
+            </span>
+            <span class="brand-badge">Vector Engine v1.0</span>
+        </a>
+
+
+
+
+        <!-- OPTION 2: Modern Flat Header Badge Style -->
+
+
+
+    </header>
+
+    <!-- Main Split Interface -->
+    <main>
+
+        <!-- LEFT: Generator Workspace -->
+        <section class="generator-pane">
+            <div class="hero-heading">
+                <h1>Printable Vector Calendar Generator</h1>
+                <p>Select your custom date range and regional location to load statutory holiday data directly from
+                    Nager.Date.</p>
+            </div>
+
+
+
+            <!-- Controls Matrix -->
+            <div class="control-grid" id="holiday-location-box">
+                <div class="field-group">
+                    <label for="start-date">Start Month</label>
+                    <input type="month" id="start-date" value="2026-09">
+                </div>
+
+                <div class="field-group">
+                    <label for="end-date">End Month</label>
+                    <input type="month" id="end-date" value="2026-12">
+                </div>
+
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="include-holidays" checked>
+                <label for="include-holidays">Include Statutory Holidays in Day Cells</label>
+            </div>
+            <div class="control-grid" id="holiday-location-box">
+
+                <!-- Country Select -->
+                <div class="field-group">
+                    <label for="country-select" id="country-label">Country</label>
+                    <select id="country-select">
+                        <option value="CA" selected>Canada (CA)</option>
+                        <option value="US">United States (US)</option>
+                        <option value="GB">United Kingdom (GB)</option>
+                        <option value="AU">Australia (AU)</option>
+                    </select>
+                </div>
+
+                <!-- Province / State Select (Cascading based on Country) -->
+                <div class="field-group">
+                    <label for="region-select" id="region-label">Province / Territory</label>
+                    <select id="region-select">
+                        <!-- Dynamically populated via JS -->
+                    </select>
+                </div>
+            </div>
+
+
+
+            <!-- SVG Preview Area -->
+            <div class="svg-preview-stage" id="preview-stage">
+                <div class="svg-placeholder">
+                    <p><strong>SVG Preview Stage</strong></p>
+                    <p style="font-size: 0.75rem; margin-top: 0.25rem;">Live vector layout compiles directly in-browser
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <button class="btn-primary" id="generate-pdf-btn">Download PDF Vector Document</button>
+            </div>
+        </section>
+
+        <!-- RIGHT: Technical Architecture Panel (PWS Showcase) -->
+        <section class="tech-pane">
+
+            <div class="tech-card">
+                <h2>Engineering Specs <span class="brand-badge">Zero-Bloat</span></h2>
+                <ul class="tech-spec-list">
+                    <li><strong>Render Pipeline:</strong> Native SVG DOM → Multi-page PDF</li>
+                    <li><strong>Data Strategy:</strong> Nager.Date API + Local DB Cache</li>
+                    <li><strong>API Payload:</strong> Country + County Code Filtering</li>
+                    <li><strong>Client Footprint:</strong> &lt; 12 KB gzipped JavaScript</li>
+                    <li><strong>Execution Time:</strong> Sub-millisecond local compilation</li>
+                </ul>
+            </div>
+
+            <div class="tech-card">
+                <h2>Print Capabilities</h2>
+                <ul class="tech-spec-list">
+                    <li><strong>Resolution:</strong> Infinite DPI (Native Vector Paths)</li>
+                    <li><strong>Margins:</strong> Built-in 0.5" Printer Safety Boundary</li>
+                    <li><strong>Paper Sizes:</strong> Letter & A4 Landscape Formats</li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer with PWS Credit -->
+    <footer>
+        <p>
+            © 2026 PrintCalendar Utility. Engineered for maximum speed & precision by
+            <a href="https://precisionwebsystems.com" target="_blank" rel="noopener"
+                title="Precision Web Systems - High Performance Web Engineering">
+                Precision Web Systems
+            </a>
+        </p>
+    </footer>
+
+    <!-- Cascading Location Selector Logic -->
+
+</body>
+<script src="scripts/site.js"></script>
+
+</html>
