@@ -284,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Draw SVG Month ---
 function createSVGMonth(year, monthIndex, orientation) {
+    console.log(monthIndex, year, orientation);
     const width = orientation === 'portrait' ? 794 : 1123;
     const height = orientation === 'portrait' ? 1123 : 794;
     const margin = 50;
@@ -303,7 +304,8 @@ function createSVGMonth(year, monthIndex, orientation) {
     title.setAttribute("text-anchor", "middle");
     title.setAttribute("font-size", "36");
     title.setAttribute("font-family", "Arial");
-    title.textContent = `${monthNames[monthIndex]} ${year}`;
+    title.textContent = `${getMonthName(monthIndex)} ${year}`;
+    console.log(getMonthName(monthIndex));
     svg.appendChild(title);
 
     // Weekday headers
@@ -376,7 +378,7 @@ function generateCalendars(monthsContainer, orientation = 'horizontal') {
     monthsContainer.forEach(monthIndex => {
         console.log(getMonthName(monthIndex.month)); // "January"
         let monthName = getMonthName(monthIndex.month);
-        const svg = createSVGMonth(monthIndex.year, monthName, orientation);
+        const svg = createSVGMonth(monthIndex.year, monthIndex.month, orientation);
         container.appendChild(svg);
     });
 }
