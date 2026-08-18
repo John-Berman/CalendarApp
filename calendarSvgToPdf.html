@@ -142,6 +142,7 @@ function generateCalendars() {
   const orientation = document.getElementById('orientation').value;
   const selectedMonths = Array.from(monthContainer.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
 
+  console.log(selectedMonths);
   const container = document.getElementById('svgContainer');
   container.innerHTML = '';
   selectedMonths.forEach(monthIndex => {

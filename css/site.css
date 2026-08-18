@@ -46,7 +46,7 @@
     .checkbox-group { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
 
     /* SVG Visual Stage */
-    .svg-preview-stage { border: 1px dashed var(--border); border-radius: 6px; height: 360px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .svg-preview-stage { border: 1px dashed var(--border); border-radius: 6px; min-height: 360px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     .svg-placeholder { text-align: center; color: var(--text-muted); font-size: 0.875rem; }
 
     .action-bar { display: flex; gap: 1rem; align-items: center; }
