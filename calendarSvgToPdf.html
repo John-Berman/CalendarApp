@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVG Calendar Generator</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 1rem; }
+  #controls { margin-bottom: 20px; }
+  svg { border: 1px solid #ccc; margin: 10px; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <label>Year: <input type="number" id="yearInput" value="2025" min="2000" max="2100"></label>
+  <label>Orientation:
+    <select id="orientation">
+      <option value="portrait">Portrait</option>
+      <option value="landscape">Landscape</option>
+    </select>
+  </label>
+  <br><br>
+  <label>Select months:</label><br>
+  <div id="monthCheckboxes"></div>
+  <br>
+  <button id="generateBtn">Generate Calendars</button>
+  <button id="downloadPdfBtn">Download PDF</button>
+</div>
+
+<div id="svgContainer"></div>
+
+<!-- jsPDF + svg2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg2pdf.js/dist/svg2pdf.min.js"></script>
+
+<script>
+const { jsPDF } = window.jspdf;
+
+const monthNames = [
+  'January','February','March','April','May','June',
+  'July','August','September','October','November','December'
+];
+const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+const monthContainer = document.getElementById('monthCheckboxes');
+monthNames.forEach((m, i) => {
+  const label = document.createElement('label');
+  label.innerHTML = `<input type="checkbox" value="${i}"> ${m}`;
+  monthContainer.appendChild(label);
+});
+
+document.getElementById('generateBtn').addEventListener('click', generateCalendars);
+document.getElementById('downloadPdfBtn').addEventListener('click', downloadPdf);
+
+// --- Draw SVG Month ---
+function createSVGMonth(year, monthIndex, orientation) {
+  const width = orientation === 'portrait' ? 794 : 1123;
+  const height = orientation === 'portrait' ? 1123 : 794;
+  const margin = 50;
+  const headerHeight = 50;
+  const cellHeight = (height - margin*2 - headerHeight) / 6;
+  const cellWidth = (width - margin*2) / 7;
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+
+  // Month title
+  const title = document.createElementNS(svgNS, "text");
+  title.setAttribute("x", width/2);
+  title.setAttribute("y", margin);
+  title.setAttribute("text-anchor", "middle");
+  title.setAttribute("font-size", "36");
+  title.setAttribute("font-family", "Arial");
+  title.textContent = `${monthNames[monthIndex]} ${year}`;
+  svg.appendChild(title);
+
+  // Weekday headers
+  weekdays.forEach((day, i) => {
+    const rect = document.createElementNS(svgNS, "rect");
+    rect.setAttribute("x", margin + i*cellWidth);
+    rect.setAttribute("y", margin + 20);
+    rect.setAttribute("width", cellWidth);
+    rect.setAttribute("height", headerHeight);
+    rect.setAttribute("fill", "black");
+    rect.setAttribute("stroke", "black");
+    svg.appendChild(rect);
+
+    const text = document.createElementNS(svgNS, "text");
+    text.setAttribute("x", margin + i*cellWidth + cellWidth/2);
+    text.setAttribute("y", margin + 20 + headerHeight/2 + 6);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("fill", "white");
+    text.setAttribute("font-size", "16");
+    text.setAttribute("font-family", "Arial");
+    text.textContent = day;
+    svg.appendChild(text);
+  });
+
+  // Dates
+  const firstDay = new Date(year, monthIndex, 1).getDay();
+  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+  let day = 1;
+
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 7; j++) {
+      const x = margin + j*cellWidth;
+      const y = margin + 20 + headerHeight + i*cellHeight;
+      const cellIndex = i*7 + j;
+      const isBlank = cellIndex < firstDay || day > daysInMonth;
+
+      const rect = document.createElementNS(svgNS, "rect");
+      rect.setAttribute("x", x);
+      rect.setAttribute("y", y);
+      rect.setAttribute("width", cellWidth);
+      rect.setAttribute("height", cellHeight);
+      rect.setAttribute("fill", isBlank ? "#eee" : "#fff");
+      rect.setAttribute("stroke", "black");
+      svg.appendChild(rect);
+
+      if (!isBlank) {
+        const text = document.createElementNS(svgNS, "text");
+        text.setAttribute("x", x + 5);
+        text.setAttribute("y", y + 20);
+        text.setAttribute("font-size", "16");
+        text.setAttribute("font-family", "Arial");
+        text.textContent = day;
+        svg.appendChild(text);
+        day++;
+      }
+    }
+  }
+
+  return svg;
+}
+
+// --- Generate calendars ---
+function generateCalendars() {
+  const year = parseInt(document.getElementById('yearInput').value);
+  const orientation = document.getElementById('orientation').value;
+  const selectedMonths = Array.from(monthContainer.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
+
+  const container = document.getElementById('svgContainer');
+  container.innerHTML = '';
+  selectedMonths.forEach(monthIndex => {
+    const svg = createSVGMonth(year, monthIndex, orientation);
+    container.appendChild(svg);
+  });
+}
+
+// --- Export to PDF ---
+async function downloadPdfZ() {
+  const svgs = document.querySelectorAll('#svgContainer svg');
+  if (!svgs.length) { alert('Generate calendars first.'); return; }
+
+  const orientation = document.getElementById('orientation').value;
+  const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
+
+  for (let i = 0; i < svgs.length; i++) {
+    await window.svg2pdf(svgs[i], pdf, { xOffset: 0, yOffset: 0, scale: 1 });
+    if (i < svgs.length -1) pdf.addPage();
+  }
+
+  pdf.save('calendar.pdf');
+}
+
+// --- Export to PDF ---
+async function downloadPdfzz() {
+  const svgs = document.querySelectorAll('#svgContainer svg');
+  if (!svgs.length) { alert('Generate calendars first.'); return; }
+
+  const orientation = document.getElementById('orientation').value;
+  const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
+
+  // Get A4 page dimensions in points
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  for (let i = 0; i < svgs.length; i++) {
+    const svg = svgs[i];
+    const bbox = svg.getBBox();
+    const svgWidth = bbox.width;
+    const svgHeight = bbox.height;
+
+    // Compute scale to fit the SVG inside the page
+    const scale = Math.min(
+      pageWidth / svgWidth,
+      pageHeight / svgHeight
+    );
+
+    const xOffset = (pageWidth - svgWidth * scale) / 2;
+    const yOffset = (pageHeight - svgHeight * scale) / 2;
+
+    await window.svg2pdf(svg, pdf, {
+      xOffset,
+      yOffset,
+      scale
+    });
+
+    if (i < svgs.length - 1) pdf.addPage();
+  }
+
+  pdf.save('calendar.pdf');
+}
+
+async function downloadPdf() {
+  const svgs = document.querySelectorAll('#svgContainer svg');
+  if (!svgs.length) { alert('Generate calendars first.'); return; }
+
+  const orientation = document.getElementById('orientation').value;
+  const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  for (let i = 0; i < svgs.length; i++) {
+    const svg = svgs[i].cloneNode(true); // clone so we can modify safely
+
+    // --- Ensure SVG has a viewBox ---
+    if (!svg.getAttribute('viewBox')) {
+      const w = svg.getAttribute('width') || 800;
+      const h = svg.getAttribute('height') || 1120;
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    }
+
+    const vb = svg.getAttribute('viewBox').split(' ').map(Number);
+    const svgWidth = vb[2];
+    const svgHeight = vb[3];
+
+    // --- Compute scale to fit page ---
+    const scale = Math.min(
+      pageWidth / svgWidth,
+      pageHeight / svgHeight
+    );
+
+    const xOffset = (pageWidth - svgWidth * scale) / 2;
+    const yOffset = (pageHeight - svgHeight * scale) / 2;
+
+    // --- Render vector graphics into the PDF ---
+    await window.svg2pdf(svg, pdf, {
+      xOffset,
+      yOffset,
+      scale
+    });
+
+    if (i < svgs.length - 1) pdf.addPage();
+  }
+
+  pdf.save('calendar.pdf');
+}
+
+</script>
+</body>
+</html>
