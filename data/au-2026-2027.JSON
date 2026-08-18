@@ -1,0 +1,672 @@
+[
+    {
+        "date": "2026-01-01",
+        "name": "New Year's Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-01-26",
+        "name": "Australia Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-03-02",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-03-09",
+        "name": "Canberra Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-03-09",
+        "name": "Adelaide Cup Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-SA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-03-09",
+        "name": "Eight Hours Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-TAS"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-03-09",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-03",
+        "name": "Good Friday",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-04",
+        "name": "Holy Saturday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-NT",
+            "AU-QLD",
+            "AU-SA",
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-05",
+        "name": "Easter Sunday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-NT",
+            "AU-QLD",
+            "AU-SA",
+            "AU-VIC",
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-06",
+        "name": "Easter Monday",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-25",
+        "name": "Anzac Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-SA",
+            "AU-TAS",
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-25",
+        "name": "Anzac Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NSW",
+            "AU-ACT",
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-04-25",
+        "name": "Anzac Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NT",
+            "AU-QLD"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-05-04",
+        "name": "May Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-05-04",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-QLD"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-06-01",
+        "name": "Reconciliation Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-06-01",
+        "name": "Western Australia Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-06-08",
+        "name": "King's Birthday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-NT",
+            "AU-SA",
+            "AU-TAS",
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-08-03",
+        "name": "Picnic Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-09-25",
+        "name": "Friday before AFL Grand Final",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-09-28",
+        "name": "King's Birthday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-10-05",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-SA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-10-05",
+        "name": "King's Birthday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-QLD"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-11-03",
+        "name": "Melbourne Cup",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-12-25",
+        "name": "Christmas Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2026-12-26",
+        "name": "St. Stephen's Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-01-01",
+        "name": "New Year's Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-01-26",
+        "name": "Australia Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-01",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-08",
+        "name": "Canberra Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-08",
+        "name": "Adelaide Cup Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-SA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-08",
+        "name": "Eight Hours Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-TAS"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-08",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-26",
+        "name": "Good Friday",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-27",
+        "name": "Holy Saturday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-NT",
+            "AU-QLD",
+            "AU-SA",
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-28",
+        "name": "Easter Sunday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-NT",
+            "AU-QLD",
+            "AU-SA",
+            "AU-VIC",
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-03-29",
+        "name": "Easter Monday",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-04-25",
+        "name": "Anzac Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-SA",
+            "AU-TAS",
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-04-25",
+        "name": "Anzac Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NSW",
+            "AU-ACT",
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-04-25",
+        "name": "Anzac Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NT",
+            "AU-QLD"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-05-03",
+        "name": "May Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-05-03",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-QLD"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-05-31",
+        "name": "Reconciliation Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-06-07",
+        "name": "Western Australia Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-06-14",
+        "name": "King's Birthday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-NT",
+            "AU-SA",
+            "AU-TAS",
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-08-02",
+        "name": "Picnic Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-NT"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-09-24",
+        "name": "Friday before AFL Grand Final (Tentative Date)",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-09-27",
+        "name": "King's Birthday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-WA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-10-04",
+        "name": "Labour Day",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-ACT",
+            "AU-NSW",
+            "AU-SA"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-10-04",
+        "name": "King's Birthday",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-QLD"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-11-02",
+        "name": "Melbourne Cup",
+        "countryCode": "AU",
+        "nationalHoliday": false,
+        "subdivisionCodes": [
+            "AU-VIC"
+        ],
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-12-25",
+        "name": "Christmas Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    },
+    {
+        "date": "2027-12-26",
+        "name": "St. Stephen's Day",
+        "countryCode": "AU",
+        "nationalHoliday": true,
+        "subdivisionCodes": null,
+        "holidayTypes": [
+            "Public"
+        ]
+    }
+]

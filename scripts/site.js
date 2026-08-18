@@ -1,3 +1,17 @@
+/*
+    site.js
+
+    Main client-side logic for the CalendarApp:
+    - Region/country mappings used to populate UI selects
+    - Helpers for parsing month inputs and date ranges
+    - Fetching and filtering holiday JSON data
+    - Generating SVG calendar month views
+    - Converting SVGs to a printable PDF
+
+    Notes:
+    - Keep DOM id names in sync with the HTML (start/end inputs, buttons)
+    - readCanadaJson expects holiday records with a `date` property in YYYY-MM-DD
+*/
 // Region Data Mapped to Nager.Date 'counties' ISO Codes
 const regionMap = {
     CA: {
@@ -98,6 +112,8 @@ const regionMap = {
 };
 const { jsPDF } = window.jspdf;
 function padZero(n) {
+    // padZero: return a 2-digit zero-padded string for integers
+    // e.g., padZero(4) -> '04', padZero(12) -> '12'
     const i = Number(n);
     if (!Number.isFinite(i)) return '';
     const sign = i < 0 ? '-' : '';
@@ -108,7 +124,7 @@ function padZero(n) {
 
 async function readCanadaJson() {
     try {
-        const res = await fetch('/data/canada-2026-2027.JSON');
+        const res = await fetch('/data/ca-2026-2027.JSON');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         return data;
@@ -118,10 +134,14 @@ async function readCanadaJson() {
     }
 }
 
+// NOTE: The function above is a simple legacy loader that reads the JSON
+// file without filtering. The more complete `readCanadaJson({startDate,endDate})`
+// below should be preferred when filtering by a date range is required.
+
 
 async function readCanadaJson({ startDate, endDate } = {}) {
     try {
-        const res = await fetch('/data/canada-2026-2027.json');
+        const res = await fetch('/data/ca-2026-2027.json');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const raw = await res.json(); // expect array of records with `date` like "YYYY-MM-DD"
 
@@ -161,6 +181,7 @@ function getMonthName(i) {
     if (i < 0 || i > 11) return null;
     return monthNames[i];
 }
+// getMonthName: small helper to map 0-based month index to human-friendly name
 // example
 
 // Example: Pre-selecting Country & Region on Page Load
@@ -179,6 +200,7 @@ async function autoDetectLocation() {
         console.warn('IP Geolocation failed. Falling back to default selects.', err);
     }
 }
+// autoDetectLocation: lightweight IP-based country detection to pre-select the country dropdown
 
 const startMonthInput = document.getElementById('start-date');
 const endMonthInput = document.getElementById('end-date');
@@ -203,6 +225,10 @@ function parseMonthBoundary(val, boundary = 'start') {
     }
     return new Date(year, month, 1); // first day of month
 }
+// parseMonthBoundary: accepts 'YYYY-MM' or a Date-like string and returns
+// either the first day of that month (boundary='start') or the last day
+// (boundary='end'). This avoids timezone drift by constructing dates with
+// year/month/day integer components.
 
 // Examples:
 
@@ -216,8 +242,7 @@ function getMonthsInRange(startDate, endDate) {
     while (cur <= end) {
         let newDate = new Date(cur);
 
-        console.log(newDate.getMonth(), newDate.getFullYear());
-
+        // push a copy of the month-start date (avoid mutating `cur` later)
         months.push(newDate);
         cur.setMonth(cur.getMonth() + 1);
     }
@@ -241,7 +266,8 @@ function getDatesInRange(startDate, endDate) {
     const dates = [];
     if (!startDate || !endDate || startDate > endDate) return dates;
     for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-        dates.push(newDate);
+        // push a new Date object for each day to avoid shared references
+        dates.push(new Date(d));
     }
     return dates;
 }
@@ -254,26 +280,21 @@ async function generateButtonHandler(e) {
 
 
 
-    console.log(start.getDate());
+    // Note: `start` is the first day of the start month; use getDate() for debugging
 
 
     if (!start || !end) { alert('Invalid dates'); return; }
     if (start > end) { alert('Start must be <= end'); return; }
 
-    const monthsArray = getMonthsYearsInRange(start, end); // array of month-start Dates
-    console.log(monthsArray);
+    // Build an array of { month, year } objects for each month in the range
+    const monthsArray = getMonthsYearsInRange(start, end);
 
-    const holidaysPromise = await readCanadaJson({ startDate: start, endDate: end })
-        .then(data => {
-            if (data) {
-                return data;
-                // You can now use this data to mark holidays in your calendar generation logic
-            }
-        });
+    // Fetch holidays for the selected date range and build a by-date index
+    const holidaysData = await readCanadaJson({ startDate: start, endDate: end });
+    const holidaysByDate = holidaysData ? holidaysData.byDate : {};
 
-    const holidaysByDate = holidaysPromise.byDate;
-
-    generateCalendars(monthsArray, 'landscape', holidaysByDate); // or 'landscape' based on user selection
+    // Generate calendar SVGs and render them on the page (orientation can be toggled)
+    generateCalendars(monthsArray, 'landscape', holidaysByDate);
 
     downloadPdfButton.classList.remove('disabled');
     // If you need every single day instead:
@@ -380,6 +401,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Draw SVG Month ---
 function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province) {
+        /*
+            createSVGMonth
+            - year: full year number (e.g., 2026)
+            - monthIndex: 0-based month index (0 = January)
+            - orientation: 'portrait' or 'landscape' affects SVG dimensions
+            - holidaysByDate: mapping of YYYY-MM-DD -> [holidayRecords]
+            - province: optional region code string to further filter/annotate holidays
+
+            Returns an SVGElement representing a calendar month. The function builds
+            a simple grid with weekday headers, date numbers, and optional holiday
+            labels pulled from `holidaysByDate`.
+
+            Notes:
+            - Uses absolute positioning; caller must attach the returned SVG to the DOM
+            - Holiday text may overflow the cell; consider truncating or using tooltips
+        */
     const width = orientation === 'portrait' ? 794 : 1123;
     const height = orientation === 'portrait' ? 1123 : 794;
     const margin = 50;
@@ -492,6 +529,15 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province)
 
 // --- Generate calendars ---
 function generateCalendars(monthsContainer, orientation = 'landscape', holidaysByDate = {}) {
+        /*
+            generateCalendars
+            - monthsContainer: array of { month, year } objects (as produced by getMonthsYearsInRange)
+            - orientation: 'portrait'|'landscape'
+            - holidaysByDate: map of YYYY-MM-DD to holiday record arrays
+
+            Iterates the requested month/year entries, creates SVGs using createSVGMonth,
+            and appends them into the page container with id `svg-placeholder`.
+        */
     // const year = parseInt(document.getElementById('yearInput').value);
     // const orientation = document.getElementById('orientation').value;
     // const selectedMonths = Array.from(monthContainer.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
@@ -509,6 +555,19 @@ function generateCalendars(monthsContainer, orientation = 'landscape', holidaysB
 
 
 async function downloadPdf(orientation = 'landscape') {
+        /*
+            downloadPdf
+            - orientation: 'portrait'|'landscape'
+
+            Converts all calendar SVG elements inside `#svg-placeholder` into a
+            multi-page PDF using `svg2pdf` and `jsPDF`. Each SVG is scaled and
+            centered to fit an A4 page while keeping vector fidelity.
+
+            Important:
+            - SVG elements should include proper width/height or viewBox attributes
+            - This function is async because svg2pdf can be asynchronous depending
+                on font loading and SVG complexity
+        */
     const svgs = document.querySelectorAll('#svg-placeholder svg');
     if (!svgs.length) { alert('Generate calendars first.'); return; }
 
