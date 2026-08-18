@@ -99,6 +99,25 @@ const regionMap = {
 
 
 
+
+
+// Example: Pre-selecting Country & Region on Page Load
+async function autoDetectLocation() {
+    try {
+        const response = await fetch('https://ipapi.co/json/');
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        // Set Country (e.g., "CA")
+        if (data.country_code) {
+            countryLabel.value = data.country_code;
+        }
+    } catch (err) {
+        console.warn('IP Geolocation failed. Falling back to default selects.', err);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const holidayCheckbox = document.getElementById('include-holidays');
@@ -106,6 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const regionSelect = document.getElementById('region-select');
     const regionLabel = document.getElementById('region-label');
     const countryLabel = document.getElementById('country-label');
+
+    const startMonthInput = document.getElementById('start-date');
+    const endMonthInput = document.getElementById('end-date');
+
+
+
+    function validateDateRange(e) {
+        console.log(e.target.id)
+        const startDate = new Date(startMonthInput.value);
+        const endDate = new Date(endMonthInput.value);
+        if (startDate > endDate) {
+            alert('Start date cannot be after end date.');
+
+            if (e.target.id === 'start-date') {
+                startMonthInput.value = '';
+            } else {
+                endMonthInput.value = '';
+            }
+        }
+
+    }
+
     // Toggle enabling/disabling of holiday inputs
     function toggleHolidayControls() {
         const isChecked = holidayCheckbox.checked;
@@ -150,7 +191,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Check localStorage first, otherwise fallback to IP detection
+    const savedCountry = localStorage.getItem('pws_user_country');
+    if (savedCountry) {
+        countrySelect.value = savedCountry;
+    } else {
+        autoDetectLocation();
+    }
+
     // Event Listener for Cascading Select
+    endMonthInput.addEventListener('change', validateDateRange);
+    startMonthInput.addEventListener('change', validateDateRange);
     holidayCheckbox.addEventListener('change', toggleHolidayControls);
     countrySelect.addEventListener('change', updateRegionDropdown);
     toggleHolidayControls();
