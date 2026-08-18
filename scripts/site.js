@@ -96,13 +96,75 @@ const regionMap = {
         ]
     }
 };
+const { jsPDF } = window.jspdf;
+function padZero(n) {
+    const i = Number(n);
+    if (!Number.isFinite(i)) return '';
+    const sign = i < 0 ? '-' : '';
+    const abs = Math.abs(Math.trunc(i));
+    return sign + String(abs).padStart(2, '0');
+}
 
 
-const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+async function readCanadaJson() {
+    try {
+        const res = await fetch('/data/canada-2026-2027.JSON');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.error('Failed to read JSON:', err);
+        return null;
+    }
+}
+
+// // usage
+// readCanadaJson().then(data => {
+
+//     if (data) console.log('Loaded', data);
+// });
+
+async function readCanadaJson({ startDate, endDate } = {}) {
+    try {
+        const res = await fetch('/data/canada-2026-2027.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const raw = await res.json(); // expect array of records with `date` like "YYYY-MM-DD"
+
+        // Normalize range to ISO date strings (YYYY-MM-DD)
+        const toISO = d => d.toISOString().slice(0, 10);
+        const startISO = startDate ? toISO(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) : null;
+        const endISO = endDate ? toISO(new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())) : null;
+
+        // Filter by range if provided
+        const filtered = raw.filter(rec => {
+            if (!rec.date) return false;
+            // console.log('Checking date:', rec.date, 'against startISO:', startISO);
+            // console.log('Checking date:', rec.date, 'against endISO:', endISO);
+
+            if (startISO && rec.date < startISO) return false;
+            if (endISO && rec.date > endISO) return false;
+            return true;
+        });
+
+        // Build map: { "YYYY-MM-DD": [records...] }
+        const byDate = filtered.reduce((acc, rec) => {
+            (acc[rec.date] = acc[rec.date] || []).push(rec);
+            return acc;
+        }, {});
+
+        return { list: filtered, byDate };
+    } catch (err) {
+        console.error('Failed to read/parse JSON:', err);
+        return { list: [], byDate: {} };
+    }
+}
+
+
+const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 function getMonthName(i) {
-  if (i < 0 || i > 11) return null;
-  return monthNames[i];
+    if (i < 0 || i > 11) return null;
+    return monthNames[i];
 }
 // example
 
@@ -125,67 +187,104 @@ async function autoDetectLocation() {
 
 const startMonthInput = document.getElementById('start-date');
 const endMonthInput = document.getElementById('end-date');
+const downloadPdfButton = document.getElementById('download-pdf-btn');
 
-function parseMonthInput(val) {
-console.log('Parsing month input:', val);
-  if (!val) return null;
-  const parts = val.split('-');
-  if (parts.length === 2) return new Date(Number(parts[0]), Number(parts[1]) - 1, 1);
-  const d = new Date(val);
-  return isNaN(d) ? null : new Date(d.getFullYear(), d.getMonth(), 1);
+function parseMonthBoundary(val, boundary = 'start') {
+    if (!val) return null;
+    const parts = String(val).split('-');
+    let year, month;
+    if (parts.length === 2) {
+        year = Number(parts[0]);
+        month = Number(parts[1]) - 1;
+    } else {
+        const d = new Date(val);
+        if (isNaN(d)) return null;
+        year = d.getFullYear();
+        month = d.getMonth();
+    }
+
+    if (boundary === 'end' || boundary === 'last') {
+        return new Date(year, month + 1, 0); // last day of month
+    }
+    return new Date(year, month, 1); // first day of month
 }
 
+// Examples:
+
+
+
 function getMonthsInRange(startDate, endDate) {
-  const months = [];
-  if (!startDate || !endDate || startDate > endDate) return months;
-  const cur = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
-  const end = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
-  while (cur <= end) {
-    let newDate = new Date(cur);
+    const months = [];
+    if (!startDate || !endDate || startDate > endDate) return months;
+    const cur = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    const end = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+    while (cur <= end) {
+        let newDate = new Date(cur);
 
-    console.log(newDate.getMonth(), newDate.getFullYear());
+        console.log(newDate.getMonth(), newDate.getFullYear());
 
-    months.push(newDate);
-    cur.setMonth(cur.getMonth() + 1);
-  }
-  return months;
+        months.push(newDate);
+        cur.setMonth(cur.getMonth() + 1);
+    }
+    return months;
 }
 
 function getMonthsYearsInRange(startDate, endDate) {
-  const months = [];
-  if (!startDate || !endDate || startDate > endDate) return months;
-  const cur = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
-  const end = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
-  while (cur <= end) {
-    let newDate = new Date(cur);
-    months.push({ month: newDate.getMonth(), year: newDate.getFullYear() });
-    cur.setMonth(cur.getMonth() + 1);
-  }
-  return months;
+    const months = [];
+    if (!startDate || !endDate || startDate > endDate) return months;
+    const cur = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    const end = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+    while (cur <= end) {
+        let newDate = new Date(cur);
+        months.push({ month: newDate.getMonth(), year: newDate.getFullYear() });
+        cur.setMonth(cur.getMonth() + 1);
+    }
+    return months;
 }
 
 function getDatesInRange(startDate, endDate) {
-  const dates = [];
-  if (!startDate || !endDate || startDate > endDate) return dates;
-  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-    dates.push(newDate);
-  }
-  return dates;
+    const dates = [];
+    if (!startDate || !endDate || startDate > endDate) return dates;
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        dates.push(newDate);
+    }
+    return dates;
 }
 
 /* Usage inside generateButtonHandler */
-function generateButtonHandler(e) {
-  const start = parseMonthInput(startMonthInput.value);
-  const end = parseMonthInput(endMonthInput.value);
-  if (!start || !end) { alert('Invalid dates'); return; }
-  if (start > end) { alert('Start must be <= end'); return; }
+async function generateButtonHandler(e) {
+    const start = parseMonthBoundary(startMonthInput.value, 'start');
 
-  const monthsArray = getMonthsYearsInRange(start, end); // array of month-start Dates
-  console.log(monthsArray);
-    generateCalendars(monthsArray);
-  // If you need every single day instead:
-  // const daysArray = getDatesInRange(start, new Date(end.getFullYear(), end.getMonth()+1, 0));
-  // console.log(daysArray);
+    const end = parseMonthBoundary(endMonthInput.value, 'end');
+
+
+
+    console.log(start.getDate());
+
+
+    if (!start || !end) { alert('Invalid dates'); return; }
+    if (start > end) { alert('Start must be <= end'); return; }
+
+    const monthsArray = getMonthsYearsInRange(start, end); // array of month-start Dates
+    console.log(monthsArray);
+
+    const holidaysPromise = await readCanadaJson({ startDate: start, endDate: end })
+        .then(data => {
+            if (data) {
+                return data;
+                // You can now use this data to mark holidays in your calendar generation logic
+            }
+        });
+
+    const holidaysByDate = holidaysPromise.byDate;
+
+    generateCalendars(monthsArray, 'landscape', holidaysByDate); // or 'landscape' based on user selection
+
+    downloadPdfButton.classList.remove('disabled');
+    // If you need every single day instead:
+    // const daysArray = getDatesInRange(start, new Date(end.getFullYear(), end.getMonth()+1, 0));
+    // console.log(daysArray);
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -195,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const regionSelect = document.getElementById('region-select');
     const regionLabel = document.getElementById('region-label');
     const countryLabel = document.getElementById('country-label');
+
 
 
     const buttonGenerate = document.getElementById('generate-pdf-btn');
@@ -275,6 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     holidayCheckbox.addEventListener('change', toggleHolidayControls);
     countrySelect.addEventListener('change', updateRegionDropdown);
     buttonGenerate.addEventListener('click', generateButtonHandler);
+    downloadPdfButton.addEventListener('click', downloadPdf);
     toggleHolidayControls();
     // Initialize on Load
     updateRegionDropdown();
@@ -283,8 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // --- Draw SVG Month ---
-function createSVGMonth(year, monthIndex, orientation) {
-    console.log(monthIndex, year, orientation);
+function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province) {
     const width = orientation === 'portrait' ? 794 : 1123;
     const height = orientation === 'portrait' ? 1123 : 794;
     const margin = 50;
@@ -305,7 +405,6 @@ function createSVGMonth(year, monthIndex, orientation) {
     title.setAttribute("font-size", "36");
     title.setAttribute("font-family", "Arial");
     title.textContent = `${getMonthName(monthIndex)} ${year}`;
-    console.log(getMonthName(monthIndex));
     svg.appendChild(title);
 
     // Weekday headers
@@ -337,6 +436,9 @@ function createSVGMonth(year, monthIndex, orientation) {
 
     for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
+            let datetime = (`${year}-${padZero(monthIndex + 1)}-${padZero(day)}`);
+            let holiday = holidaysByDate[datetime];
+
             const x = margin + j * cellWidth;
             const y = margin + 20 + headerHeight + i * cellHeight;
             const cellIndex = i * 7 + j;
@@ -361,6 +463,32 @@ function createSVGMonth(year, monthIndex, orientation) {
                 svg.appendChild(text);
                 day++;
             }
+
+            if (!isBlank) {
+                if (holiday && holiday.length > 0) {
+                    console.log(`Holiday on ${datetime}:`, holiday);
+                    let yy = 17;
+                    holiday.forEach(h => {
+                        console.log(`Holiday: ${h.localName} - ${h.name} - ${h}`);
+
+                        // if(h.subdivisionCodes !== null){
+                        //     h.subdivisionCodes.forEach(sub => {
+                        //         console.log(sub);
+                        //     });
+                        // }
+
+                        const holidayText = document.createElementNS(svgNS, "text");
+                        holidayText.setAttribute("x", x + 25);
+                        holidayText.setAttribute("y", y + yy);
+                        holidayText.setAttribute("font-size", "10");
+                        holidayText.setAttribute("font-family", "Arial");
+                        holidayText.textContent = h.name; // or h.name depending on what you want to display
+                        svg.appendChild(holidayText);
+
+                        yy += 12;
+                    });
+                }
+            }
         }
     }
 
@@ -368,27 +496,28 @@ function createSVGMonth(year, monthIndex, orientation) {
 }
 
 // --- Generate calendars ---
-function generateCalendars(monthsContainer, orientation = 'horizontal') {
+function generateCalendars(monthsContainer, orientation = 'landscape', holidaysByDate = {}) {
     // const year = parseInt(document.getElementById('yearInput').value);
     // const orientation = document.getElementById('orientation').value;
     // const selectedMonths = Array.from(monthContainer.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
-
+    const province = document.getElementById('region-select').value;
+    console.log(province);
     const container = document.getElementById('svg-placeholder');
     container.innerHTML = '';
     monthsContainer.forEach(monthIndex => {
-        console.log(getMonthName(monthIndex.month)); // "January"
+        //console.log(getMonthName(monthIndex.month)); // "January"
         let monthName = getMonthName(monthIndex.month);
-        const svg = createSVGMonth(monthIndex.year, monthIndex.month, orientation);
+        const svg = createSVGMonth(monthIndex.year, monthIndex.month, orientation, holidaysByDate, province);
         container.appendChild(svg);
     });
 }
 
 
-async function downloadPdf() {
-    const svgs = document.querySelectorAll('#svgContainer svg');
+async function downloadPdf(orientation = 'landscape') {
+    const svgs = document.querySelectorAll('#svg-placeholder svg');
     if (!svgs.length) { alert('Generate calendars first.'); return; }
 
-    const orientation = document.getElementById('orientation').value;
+    //const orientation = document.getElementById('orientation').value;
     const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
 
     const pageWidth = pdf.internal.pageSize.getWidth();

@@ -1,0 +1,758 @@
+[
+  {
+    "date": "2026-01-01",
+    "name": "New Year's Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-02-16",
+    "name": "Louis Riel Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-MB"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-02-16",
+    "name": "Islander Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-02-16",
+    "name": "Heritage Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NS"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-02-16",
+    "name": "Family Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-BC",
+      "CA-NB",
+      "CA-ON",
+      "CA-SK"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-03-17",
+    "name": "Saint Patrick's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-04-03",
+    "name": "Good Friday",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-04-06",
+    "name": "Easter Monday",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-04-23",
+    "name": "Saint George's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-05-18",
+    "name": "National Patriots' Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-QC"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-05-18",
+    "name": "Victoria Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-06-21",
+    "name": "National Aboriginal Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-06-24",
+    "name": "Discovery Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-06-24",
+    "name": "National Holiday",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-QC"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-07-01",
+    "name": "Canada Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-07-12",
+    "name": "Orangemen's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "name": "Civic Holiday",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-MB",
+      "CA-NL",
+      "CA-NT",
+      "CA-NU",
+      "CA-ON"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "name": "British Columbia Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-BC"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "name": "Heritage Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-YT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "name": "New Brunswick Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NB"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "name": "Natal Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NS"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-03",
+    "name": "Saskatchewan Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-SK"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-17",
+    "name": "Gold Cup Parade Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-08-17",
+    "name": "Discovery Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-YT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-09-07",
+    "name": "Labour Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-09-30",
+    "name": "National Day for Truth and Reconciliation",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-10-12",
+    "name": "Thanksgiving",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-11-11",
+    "name": "Armistice Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-11-11",
+    "name": "Remembrance Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-BC",
+      "CA-NB",
+      "CA-NT",
+      "CA-NS",
+      "CA-NU",
+      "CA-PE",
+      "CA-SK",
+      "CA-YT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-12-25",
+    "name": "Christmas Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2026-12-26",
+    "name": "St. Stephen's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-NB",
+      "CA-NS",
+      "CA-ON",
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-01-01",
+    "name": "New Year's Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-02-15",
+    "name": "Louis Riel Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-MB"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-02-15",
+    "name": "Islander Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-02-15",
+    "name": "Heritage Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NS"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-02-15",
+    "name": "Family Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-BC",
+      "CA-NB",
+      "CA-ON",
+      "CA-SK"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-03-17",
+    "name": "Saint Patrick's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-03-26",
+    "name": "Good Friday",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-03-29",
+    "name": "Easter Monday",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-04-23",
+    "name": "Saint George's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-05-24",
+    "name": "National Patriots' Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-QC"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-05-24",
+    "name": "Victoria Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-06-21",
+    "name": "National Aboriginal Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-06-24",
+    "name": "Discovery Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-06-24",
+    "name": "National Holiday",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-QC"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-07-01",
+    "name": "Canada Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-07-12",
+    "name": "Orangemen's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-02",
+    "name": "Civic Holiday",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-MB",
+      "CA-NL",
+      "CA-NT",
+      "CA-NU",
+      "CA-ON"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-02",
+    "name": "British Columbia Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-BC"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-02",
+    "name": "Heritage Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-YT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-02",
+    "name": "New Brunswick Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NB"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-02",
+    "name": "Natal Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NS"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-02",
+    "name": "Saskatchewan Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-SK"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-16",
+    "name": "Gold Cup Parade Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-08-16",
+    "name": "Discovery Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-YT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-09-06",
+    "name": "Labour Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-09-30",
+    "name": "National Day for Truth and Reconciliation",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-10-11",
+    "name": "Thanksgiving",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-11-11",
+    "name": "Armistice Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-NL"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-11-11",
+    "name": "Remembrance Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-BC",
+      "CA-NB",
+      "CA-NT",
+      "CA-NS",
+      "CA-NU",
+      "CA-PE",
+      "CA-SK",
+      "CA-YT"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-12-25",
+    "name": "Christmas Day",
+    "countryCode": "CA",
+    "nationalHoliday": true,
+    "subdivisionCodes": null,
+    "holidayTypes": [
+      "Public"
+    ]
+  },
+  {
+    "date": "2027-12-26",
+    "name": "St. Stephen's Day",
+    "countryCode": "CA",
+    "nationalHoliday": false,
+    "subdivisionCodes": [
+      "CA-AB",
+      "CA-NB",
+      "CA-NS",
+      "CA-ON",
+      "CA-PE"
+    ],
+    "holidayTypes": [
+      "Public"
+    ]
+  }
+]

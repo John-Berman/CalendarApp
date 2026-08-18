@@ -211,6 +211,7 @@ async function downloadPdf() {
   if (!svgs.length) { alert('Generate calendars first.'); return; }
 
   const orientation = document.getElementById('orientation').value;
+  console.log(`Orientation: ${orientation}`);
   const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
 
   const pageWidth = pdf.internal.pageSize.getWidth();
