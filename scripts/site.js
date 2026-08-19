@@ -398,36 +398,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
+function getContentWidth(element) {
+  // 1. Get width including padding (but excluding borders/scrollbars)
+  const clientWidth = element.clientWidth; 
+  
+  // 2. Get the computed styles to read exact padding values
+  const computedStyle = window.getComputedStyle(element);
+  
+  const paddingLeft = parseFloat(computedStyle.paddingLeft);
+  const paddingRight = parseFloat(computedStyle.paddingRight);
+  
+  // 3. Subtract padding to get raw content width
+  return clientWidth - paddingLeft - paddingRight;
+}
 // --- Draw SVG Month ---
-function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province) {
-        /*
-            createSVGMonth
-            - year: full year number (e.g., 2026)
-            - monthIndex: 0-based month index (0 = January)
-            - orientation: 'portrait' or 'landscape' affects SVG dimensions
-            - holidaysByDate: mapping of YYYY-MM-DD -> [holidayRecords]
-            - province: optional region code string to further filter/annotate holidays
+function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province, parentWidth) {
+    /*
+        createSVGMonth
+        - year: full year number (e.g., 2026)
+        - monthIndex: 0-based month index (0 = January)
+        - orientation: 'portrait' or 'landscape' affects SVG dimensions
+        - holidaysByDate: mapping of YYYY-MM-DD -> [holidayRecords]
+        - province: optional region code string to further filter/annotate holidays
 
-            Returns an SVGElement representing a calendar month. The function builds
-            a simple grid with weekday headers, date numbers, and optional holiday
-            labels pulled from `holidaysByDate`.
+        Returns an SVGElement representing a calendar month. The function builds
+        a simple grid with weekday headers, date numbers, and optional holiday
+        labels pulled from `holidaysByDate`.
 
-            Notes:
-            - Uses absolute positioning; caller must attach the returned SVG to the DOM
-            - Holiday text may overflow the cell; consider truncating or using tooltips
-        */
+        Notes:
+        - Uses absolute positioning; caller must attach the returned SVG to the DOM
+        - Holiday text may overflow the cell; consider truncating or using tooltips
+    */
+
+    const viewBox = (pw, sh, sw) => {
+        console.log(pw, sh, sw);
+        return (pw * sw) / sh;
+    }
+
+
     const width = orientation === 'portrait' ? 794 : 1123;
     const height = orientation === 'portrait' ? 1123 : 794;
     const margin = 50;
     const headerHeight = 50;
     const cellHeight = (height - margin * 2 - headerHeight) / 6;
     const cellWidth = (width - margin * 2) / 7;
+    const newHeight = viewBox(parentWidth, width, height);
+    console.log(newHeight);
+
 
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", width);
-    svg.setAttribute("height", height);
+    svg.setAttribute("viewBox",`0 0 ${width} ${height}`);
+    // svg.setAttribute("width", parentWidth);
+    // svg.setAttribute("height", newHeight);
+    svg.setAttribute("style", "width: 100%; height: auto; display: block;");
 
     // Month title
     const title = document.createElementNS(svgNS, "text");
@@ -529,15 +553,15 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province)
 
 // --- Generate calendars ---
 function generateCalendars(monthsContainer, orientation = 'landscape', holidaysByDate = {}) {
-        /*
-            generateCalendars
-            - monthsContainer: array of { month, year } objects (as produced by getMonthsYearsInRange)
-            - orientation: 'portrait'|'landscape'
-            - holidaysByDate: map of YYYY-MM-DD to holiday record arrays
+    /*
+        generateCalendars
+        - monthsContainer: array of { month, year } objects (as produced by getMonthsYearsInRange)
+        - orientation: 'portrait'|'landscape'
+        - holidaysByDate: map of YYYY-MM-DD to holiday record arrays
 
-            Iterates the requested month/year entries, creates SVGs using createSVGMonth,
-            and appends them into the page container with id `svg-placeholder`.
-        */
+        Iterates the requested month/year entries, creates SVGs using createSVGMonth,
+        and appends them into the page container with id `svg-placeholder`.
+    */
     // const year = parseInt(document.getElementById('yearInput').value);
     // const orientation = document.getElementById('orientation').value;
     // const selectedMonths = Array.from(monthContainer.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
@@ -545,34 +569,44 @@ function generateCalendars(monthsContainer, orientation = 'landscape', holidaysB
     console.log(province);
     const container = document.getElementById('svg-placeholder');
     container.innerHTML = '';
+
+    const parentWidth = getContentWidth(container);
+    console.log('Parent width:', parentWidth);
+
     monthsContainer.forEach(monthIndex => {
         //console.log(getMonthName(monthIndex.month)); // "January"
         let monthName = getMonthName(monthIndex.month);
-        const svg = createSVGMonth(monthIndex.year, monthIndex.month, orientation, holidaysByDate, province);
+        const svg = createSVGMonth(monthIndex.year, monthIndex.month, orientation, holidaysByDate, province, parentWidth);
+
+
+
+
         container.appendChild(svg);
     });
 }
 
 
 async function downloadPdf(orientation = 'landscape') {
-        /*
-            downloadPdf
-            - orientation: 'portrait'|'landscape'
+    /*
+        downloadPdf
+        - orientation: 'portrait'|'landscape'
 
-            Converts all calendar SVG elements inside `#svg-placeholder` into a
-            multi-page PDF using `svg2pdf` and `jsPDF`. Each SVG is scaled and
-            centered to fit an A4 page while keeping vector fidelity.
+        Converts all calendar SVG elements inside `#svg-placeholder` into a
+        multi-page PDF using `svg2pdf` and `jsPDF`. Each SVG is scaled and
+        centered to fit an A4 page while keeping vector fidelity.
 
-            Important:
-            - SVG elements should include proper width/height or viewBox attributes
-            - This function is async because svg2pdf can be asynchronous depending
-                on font loading and SVG complexity
-        */
+        Important:
+        - SVG elements should include proper width/height or viewBox attributes
+        - This function is async because svg2pdf can be asynchronous depending
+            on font loading and SVG complexity
+    */
+   orientation = orientation || 'landscape';
+   console.log(orientation);
     const svgs = document.querySelectorAll('#svg-placeholder svg');
     if (!svgs.length) { alert('Generate calendars first.'); return; }
 
     //const orientation = document.getElementById('orientation').value;
-    const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
 
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
@@ -587,6 +621,14 @@ async function downloadPdf(orientation = 'landscape') {
             svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
         }
 
+
+        // Remove style attributes that may interfere with PDF rendering
+        svg.removeAttribute('style');
+        // Add height and width attributes to ensure proper scaling
+        svg.setAttribute('width', svg.getAttribute('width') || '1120');
+        svg.setAttribute('height', svg.getAttribute('height') || '800');
+
+        console.log(svg);
         const vb = svg.getAttribute('viewBox').split(' ').map(Number);
         const svgWidth = vb[2];
         const svgHeight = vb[3];

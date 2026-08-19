@@ -15,7 +15,7 @@
 
 
 
- 
+
 </head>
 
 
@@ -105,12 +105,12 @@
                     </p>
 
                     <h1>
-                        Make a calendar.
-                        <span>Print it. Done.</span>
+                        Make a calendar.<br />
+                        <span>Print it.<br />Done.</span>
                     </h1>
 
                     <p>
-                        Create a Calendar Shed for any month or
+                        Create a Calendar for any month or
                         date range. Add holidays, events, notes,
                         goals and reminders.
                     </p>
@@ -140,114 +140,47 @@
                             You can customize the calendar later.
                         </p>
 
+                        <!-- Controls Matrix -->
+                        <div class="control-grid" id="holiday-location-box">
+                            <div class="field-group">
+                                <label class="form-label" for="start-date">Start Month</label>
+                                <input class="form-control" type="month" id="start-date" value="2026-09">
+                            </div>
 
-                        <div class="form-group">
-
-                            <label class="form-label" for="startDate">
-
-                                Start month
-
-                            </label>
-
-                            <select id="startDate" class="form-control">
-
-                                <option>
-                                    August 2026
-                                </option>
-
-                                <option>
-                                    September 2026
-                                </option>
-
-                                <option>
-                                    October 2026
-                                </option>
-
-                                <option>
-                                    November 2026
-                                </option>
-
-                                <option>
-                                    December 2026
-                                </option>
-
-                                <option>
-                                    January 2027
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label class="form-label" for="endDate">
-
-                                End month
-
-                            </label>
-
-                            <select id="endDate" class="form-control">
-
-                                <option>
-                                    August 2026
-                                </option>
-
-                                <option>
-                                    September 2026
-                                </option>
-
-                                <option>
-                                    October 2026
-                                </option>
-
-                                <option>
-                                    November 2026
-                                </option>
-
-                                <option>
-                                    December 2026
-                                </option>
-
-                                <option>
-                                    January 2027
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <span class="form-label">
-                                Week starts on
-                            </span>
-
-                            <div class="radio-group">
-
-                                <label class="radio-option">
-
-                                    <input type="radio" name="weekStart" checked>
-
-                                    Monday
-
-                                </label>
-
-
-                                <label class="radio-option">
-
-                                    <input type="radio" name="weekStart">
-
-                                    Sunday
-
-                                </label>
-
+                            <div class="field-group">
+                                <label class="form-label" for="end-date">End Month</label>
+                                <input class="form-control" type="month" id="end-date" value="2026-12">
                             </div>
 
                         </div>
 
+
+
+                        <div class="form-group">
+                            <span class="form-label">
+                                Week starts on
+                            </span>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="weekStart" checked>
+                                    Monday
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="weekStart">
+                                    Sunday
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="form-label" for="orientation">Orientation</label>
+                            <select class="form-control" id="orientation">
+                                <option value="portrait">Portrait</option>
+                                <option value="landscape">Landscape</option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
 
@@ -267,19 +200,6 @@
 
                         </div>
 
-                        <!-- Controls Matrix -->
-                        <div class="control-grid" id="holiday-location-box">
-                            <div class="field-group">
-                                <label for="start-date">Start Month</label>
-                                <input type="month" id="start-date" value="2026-09">
-                            </div>
-
-                            <div class="field-group">
-                                <label for="end-date">End Month</label>
-                                <input type="month" id="end-date" value="2026-12">
-                            </div>
-
-                        </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="include-holidays" checked>
                             <label for="include-holidays">Include Statutory Holidays in Day Cells</label>
@@ -288,8 +208,8 @@
 
                             <!-- Country Select -->
                             <div class="field-group">
-                                <label for="country-select" id="country-label">Country</label>
-                                <select id="country-select">
+                                <label class="form-label" for="country-select" id="country-label">Country</label>
+                                <select class="form-control" id="country-select">
                                     <option value="CA" selected>Canada (CA)</option>
                                     <option value="US">United States (US)</option>
                                     <option value="GB">United Kingdom (GB)</option>
@@ -299,8 +219,8 @@
 
                             <!-- Province / State Select (Cascading based on Country) -->
                             <div class="field-group">
-                                <label for="region-select" id="region-label">Province / Territory</label>
-                                <select id="region-select">
+                                <label class="form-label" for="region-select" id="region-label">Province / Territory</label>
+                                <select class="form-control" id="region-select">
                                     <!-- Dynamically populated via JS -->
                                 </select>
                             </div>
@@ -314,22 +234,20 @@
 
                         <div id="button-group">
 
-                            <button type="button" class="builder-button">
-
+                            <button type="button" class="builder-button" id="generate-pdf-btn">
                                 Create Calendar
-
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-
                                     <line x1="5" y1="12" x2="19" y2="12">
                                     </line>
-
                                     <polyline points="12 5 19 12 12 19">
                                     </polyline>
-
                                 </svg>
-
                             </button>
+                            <div class="action-bar">
 
+                                <button class="btn-primary disabled" id="download-pdf-btn">Download PDF Vector
+                                    Document</button>
+                            </div>
 
                             <p class="builder-note">
                                 Free to use. No account required.
@@ -361,373 +279,10 @@
                         </div>
 
 
-                        <div class="calendar-paper">
+                        <div class="calendar-paper" id="svg-placeholder">
 
 
-                            <div class="calendar-header">
 
-                                <h2 class="calendar-month">
-                                    August
-                                </h2>
-
-                                <span class="calendar-year">
-                                    2026
-                                </span>
-
-                            </div>
-
-
-                            <div class="calendar-grid">
-
-
-                                <span class="day-heading">
-                                    MON
-                                </span>
-
-                                <span class="day-heading">
-                                    TUE
-                                </span>
-
-                                <span class="day-heading">
-                                    WED
-                                </span>
-
-                                <span class="day-heading">
-                                    THU
-                                </span>
-
-                                <span class="day-heading">
-                                    FRI
-                                </span>
-
-                                <span class="day-heading">
-                                    SAT
-                                </span>
-
-                                <span class="day-heading">
-                                    SUN
-                                </span>
-
-
-                                <!-- Empty -->
-
-                                <div class="calendar-cell empty"></div>
-                                <div class="calendar-cell empty"></div>
-                                <div class="calendar-cell empty"></div>
-                                <div class="calendar-cell empty"></div>
-                                <div class="calendar-cell empty"></div>
-
-
-                                <!-- August 1 -->
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        1
-                                    </span>
-
-                                </div>
-
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        2
-                                    </span>
-
-                                </div>
-
-
-                                <!-- Week -->
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        3
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        4
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        5
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        6
-                                    </span>
-
-                                    <span class="event">
-                                        Project meeting
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        7
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        8
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        9
-                                    </span>
-
-                                </div>
-
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        10
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        11
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        12
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        13
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        14
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        15
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        16
-                                    </span>
-
-                                </div>
-
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        17
-                                    </span>
-
-                                    <span class="event">
-                                        Birthday
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        18
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        19
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        20
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        21
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        22
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        23
-                                    </span>
-
-                                </div>
-
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        24
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        25
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        26
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        27
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        28
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        29
-                                    </span>
-
-                                </div>
-
-                                <div class="calendar-cell weekend">
-
-                                    <span class="date-number">
-                                        30
-                                    </span>
-
-                                </div>
-
-
-                                <div class="calendar-cell">
-
-                                    <span class="date-number">
-                                        31
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-                            <!-- Notes -->
-
-                            <div class="preview-bottom">
-
-
-                                <div class="preview-box">
-
-                                    <h3>
-                                        NOTES
-                                    </h3>
-
-                                    <div class="write-line"></div>
-                                    <div class="write-line"></div>
-
-                                </div>
-
-
-                                <div class="preview-box">
-
-                                    <h3>
-                                        GOALS
-                                    </h3>
-
-                                    <div class="write-line"></div>
-                                    <div class="write-line"></div>
-
-                                </div>
-
-
-                                <div class="preview-box">
-
-                                    <h3>
-                                        REMINDERS
-                                    </h3>
-
-                                    <div class="write-line"></div>
-                                    <div class="write-line"></div>
-
-                                </div>
-
-                            </div>
 
                         </div>
 
@@ -1527,6 +1082,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/svg2pdf.js/dist/svg2pdf.min.js"></script>
+<script src="scripts/site.js"></script>
 <script src="scripts/calendar-shed.js"></script>
 
 </html>
