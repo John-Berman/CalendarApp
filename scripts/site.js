@@ -566,7 +566,7 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
 }
 
 // --- Generate calendars ---
-function generateCalendars(monthsContainer, orientation = 'landscape', holidaysByDate = {}) {
+function generateCalendars(monthsContainer, orientation, holidaysByDate = {}) {
     /*
         generateCalendars
         - monthsContainer: array of { month, year } objects (as produced by getMonthsYearsInRange)
