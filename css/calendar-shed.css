@@ -413,6 +413,10 @@
                 transform .15s ease;
         }
 
+        .calendar-svg-container{
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
         .builder-button.disabled {
             background-color: #cccccc;
             color: #666666;

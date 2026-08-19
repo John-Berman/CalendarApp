@@ -425,7 +425,7 @@ function getContentWidth(element) {
     return clientWidth - paddingLeft - paddingRight;
 }
 // --- Draw SVG Month ---
-function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province, parentWidth) {
+function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province, parentWidth,weekStart = 0) {
     /*
         createSVGMonth
         - year: full year number (e.g., 2026)
@@ -500,7 +500,16 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
     });
 
     // Dates
-    const firstDay = new Date(year, monthIndex, 1).getDay();
+    weekStart = 1;
+    let firstDayRaw = new Date(year, monthIndex, 1).getDay();
+    let firstDay = (firstDayRaw - weekStart + 7) % 7;
+    console.log({
+        firstDayRaw:firstDayRaw,
+        firstDay: firstDay,
+        year: year,
+        monthIndex: monthIndex
+    });
+    // firstDay-=1;
     const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
     let day = 1;
 
@@ -512,6 +521,7 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
             const x = margin + j * cellWidth;
             const y = margin + 20 + headerHeight + i * cellHeight;
             const cellIndex = i * 7 + j;
+            // Determine if the cell should be blank (before the first day or after the last day)
             const isBlank = cellIndex < firstDay || day > daysInMonth;
 
             const rect = document.createElementNS(svgNS, "rect");
@@ -588,15 +598,18 @@ function generateCalendars(monthsContainer, orientation, holidaysByDate = {}) {
     const parentWidth = getContentWidth(container);
     console.log('Parent width:', parentWidth);
 
+    weekdays.push(weekdays.shift()); // Move Sunday to the end for calendar layout
+
+
+
     monthsContainer.forEach(monthIndex => {
         //console.log(getMonthName(monthIndex.month)); // "January"
         let monthName = getMonthName(monthIndex.month);
         const svg = createSVGMonth(monthIndex.year, monthIndex.month, orientation, holidaysByDate, province, parentWidth);
-
-
-
-
-        container.appendChild(svg);
+        const newParagraph = document.createElement("div");
+        newParagraph.classList.add("calendar-svg-container");
+        newParagraph.appendChild(svg);
+        container.appendChild(newParagraph);
     });
 }
 
@@ -625,24 +638,34 @@ async function downloadPdf() {
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
 
+
+    // --- Determine target dimensions based on orientation ---
+    const ow = orientation === 'landscape' ? 1120 : 800;
+    const oh = orientation === 'landscape' ? 800 : 1120;
+    console.log({
+        orientation: orientation,
+        width: ow,
+        height: oh
+    });
+
     for (let i = 0; i < svgs.length; i++) {
         const svg = svgs[i].cloneNode(true); // clone so we can modify safely
 
         // --- Ensure SVG has a viewBox ---
         if (!svg.getAttribute('viewBox')) {
-            const w = svg.getAttribute('width') || 800;
-            const h = svg.getAttribute('height') || 1120;
+            const w = svg.getAttribute('width') || String(ow);
+            const h = svg.getAttribute('height') || String(oh);
             svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
         }
 
 
         // Remove style attributes that may interfere with PDF rendering
         svg.removeAttribute('style');
-    console.log(orientation);
+        console.log(orientation);
 
         // Add height and width attributes to ensure proper scaling
-        svg.setAttribute('width', svg.getAttribute('width') || '800');
-        svg.setAttribute('height', svg.getAttribute('height') || '1120');
+        svg.setAttribute('width', svg.getAttribute('width') || ow);
+        svg.setAttribute('height', svg.getAttribute('height') || oh);
 
         console.log(svg);
         const vb = svg.getAttribute('viewBox').split(' ').map(Number);
