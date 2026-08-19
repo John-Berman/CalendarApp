@@ -220,13 +220,7 @@
             background: var(--accent-dark);
         }
 
-   .disabled {
-      background-color: #cccccc;
-      color: #666666;
-      opacity: 0.6;
-      cursor: not-allowed;
-      /* Shows a prohibitive sign on hover */
-    }
+
         /* =========================================================
            HERO
            ========================================================= */
@@ -405,7 +399,7 @@
             gap: 9px;
 
             color: white;
-            background: var(--accent);
+            background-color: var(--accent);
 
             border: 0;
             border-radius: var(--radius-sm);
@@ -417,6 +411,21 @@
             transition:
                 background .15s ease,
                 transform .15s ease;
+        }
+
+        .builder-button.disabled {
+            background-color: #cccccc;
+            color: #666666;
+            opacity: 0.6;
+            cursor: not-allowed;
+            transition: none;
+        }
+
+        .builder-button.disabled:hover {
+            background-color: #cccccc;
+            color: #666666;
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .builder-button:hover {

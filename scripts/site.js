@@ -139,9 +139,10 @@ async function readCanadaJson() {
 // below should be preferred when filtering by a date range is required.
 
 
-async function readCanadaJson({ startDate, endDate } = {}) {
+async function readCanadaJson({ startDate, endDate } = {}, country = 'CA') {
     try {
-        const res = await fetch('/data/ca-2026-2027.json');
+
+        const res = await fetch(`/data/${country.toLowerCase()}-2026-2027.json`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const raw = await res.json(); // expect array of records with `date` like "YYYY-MM-DD"
 
@@ -205,6 +206,11 @@ async function autoDetectLocation() {
 const startMonthInput = document.getElementById('start-date');
 const endMonthInput = document.getElementById('end-date');
 const downloadPdfButton = document.getElementById('download-pdf-btn');
+const countrySelect = document.getElementById('country-select');
+const regionSelect = document.getElementById('region-select');
+const holidayCheckbox = document.getElementById('include-holidays');
+const orientationSelect = document.getElementById('orientation');
+
 
 function parseMonthBoundary(val, boundary = 'start') {
     if (!val) return null;
@@ -290,13 +296,20 @@ async function generateButtonHandler(e) {
     const monthsArray = getMonthsYearsInRange(start, end);
 
     // Fetch holidays for the selected date range and build a by-date index
-    const holidaysData = await readCanadaJson({ startDate: start, endDate: end });
+    console.log(countrySelect.value, regionSelect.value);
+    const holidaysEnabled = holidayCheckbox.checked;
+    const holidaysData = holidaysEnabled ? await readCanadaJson({ startDate: start, endDate: end }, countrySelect.value) : null;
     const holidaysByDate = holidaysData ? holidaysData.byDate : {};
 
+    const orientation = orientationSelect.value;
+    console.log(orientation);
     // Generate calendar SVGs and render them on the page (orientation can be toggled)
-    generateCalendars(monthsArray, 'landscape', holidaysByDate);
+    generateCalendars(monthsArray, orientation, holidaysByDate);
 
     downloadPdfButton.classList.remove('disabled');
+
+    downloadPdfButton.removeEventListener('click', downloadPdf);
+    downloadPdfButton.addEventListener('click', downloadPdf);
     // If you need every single day instead:
     // const daysArray = getDatesInRange(start, new Date(end.getFullYear(), end.getMonth()+1, 0));
     // console.log(daysArray);
@@ -305,15 +318,13 @@ async function generateButtonHandler(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const holidayCheckbox = document.getElementById('include-holidays');
-    const countrySelect = document.getElementById('country-select');
-    const regionSelect = document.getElementById('region-select');
+
     const regionLabel = document.getElementById('region-label');
     const countryLabel = document.getElementById('country-label');
 
 
 
-    const buttonGenerate = document.getElementById('generate-pdf-btn');
+    const buttonGenerate = document.getElementById('generate-calendar-btn');
 
 
 
@@ -391,7 +402,9 @@ document.addEventListener('DOMContentLoaded', () => {
     holidayCheckbox.addEventListener('change', toggleHolidayControls);
     countrySelect.addEventListener('change', updateRegionDropdown);
     buttonGenerate.addEventListener('click', generateButtonHandler);
-    downloadPdfButton.addEventListener('click', downloadPdf);
+
+
+
     toggleHolidayControls();
     // Initialize on Load
     updateRegionDropdown();
@@ -399,17 +412,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function getContentWidth(element) {
-  // 1. Get width including padding (but excluding borders/scrollbars)
-  const clientWidth = element.clientWidth; 
-  
-  // 2. Get the computed styles to read exact padding values
-  const computedStyle = window.getComputedStyle(element);
-  
-  const paddingLeft = parseFloat(computedStyle.paddingLeft);
-  const paddingRight = parseFloat(computedStyle.paddingRight);
-  
-  // 3. Subtract padding to get raw content width
-  return clientWidth - paddingLeft - paddingRight;
+    // 1. Get width including padding (but excluding borders/scrollbars)
+    const clientWidth = element.clientWidth;
+
+    // 2. Get the computed styles to read exact padding values
+    const computedStyle = window.getComputedStyle(element);
+
+    const paddingLeft = parseFloat(computedStyle.paddingLeft);
+    const paddingRight = parseFloat(computedStyle.paddingRight);
+
+    // 3. Subtract padding to get raw content width
+    return clientWidth - paddingLeft - paddingRight;
 }
 // --- Draw SVG Month ---
 function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province, parentWidth) {
@@ -438,6 +451,7 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
 
     const width = orientation === 'portrait' ? 794 : 1123;
     const height = orientation === 'portrait' ? 1123 : 794;
+    console.log(orientation);
     const margin = 50;
     const headerHeight = 50;
     const cellHeight = (height - margin * 2 - headerHeight) / 6;
@@ -448,7 +462,7 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
 
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("viewBox",`0 0 ${width} ${height}`);
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     // svg.setAttribute("width", parentWidth);
     // svg.setAttribute("height", newHeight);
     svg.setAttribute("style", "width: 100%; height: auto; display: block;");
@@ -565,6 +579,7 @@ function generateCalendars(monthsContainer, orientation = 'landscape', holidaysB
     // const year = parseInt(document.getElementById('yearInput').value);
     // const orientation = document.getElementById('orientation').value;
     // const selectedMonths = Array.from(monthContainer.querySelectorAll('input:checked')).map(cb => parseInt(cb.value));
+    console.log(orientation);
     const province = document.getElementById('region-select').value;
     console.log(province);
     const container = document.getElementById('svg-placeholder');
@@ -586,7 +601,7 @@ function generateCalendars(monthsContainer, orientation = 'landscape', holidaysB
 }
 
 
-async function downloadPdf(orientation = 'landscape') {
+async function downloadPdf() {
     /*
         downloadPdf
         - orientation: 'portrait'|'landscape'
@@ -600,13 +615,12 @@ async function downloadPdf(orientation = 'landscape') {
         - This function is async because svg2pdf can be asynchronous depending
             on font loading and SVG complexity
     */
-   orientation = orientation || 'landscape';
-   console.log(orientation);
+    //orientation = orientation || 'landscape';
+    const orientation = orientationSelect.value;
     const svgs = document.querySelectorAll('#svg-placeholder svg');
     if (!svgs.length) { alert('Generate calendars first.'); return; }
 
-    //const orientation = document.getElementById('orientation').value;
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+    const pdf = new jsPDF({ orientation: orientation, unit: 'pt', format: 'a4' });
 
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
@@ -624,9 +638,11 @@ async function downloadPdf(orientation = 'landscape') {
 
         // Remove style attributes that may interfere with PDF rendering
         svg.removeAttribute('style');
+    console.log(orientation);
+
         // Add height and width attributes to ensure proper scaling
-        svg.setAttribute('width', svg.getAttribute('width') || '1120');
-        svg.setAttribute('height', svg.getAttribute('height') || '800');
+        svg.setAttribute('width', svg.getAttribute('width') || '800');
+        svg.setAttribute('height', svg.getAttribute('height') || '1120');
 
         console.log(svg);
         const vb = svg.getAttribute('viewBox').split(' ').map(Number);
