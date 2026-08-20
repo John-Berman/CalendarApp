@@ -178,6 +178,8 @@ async function readCanadaJson({ startDate, endDate } = {}, country = 'CA') {
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+
 function getMonthName(i) {
     if (i < 0 || i > 11) return null;
     return monthNames[i];
@@ -598,9 +600,13 @@ function generateCalendars(monthsContainer, orientation, holidaysByDate = {}) {
     const parentWidth = getContentWidth(container);
     console.log('Parent width:', parentWidth);
 
-    weekdays.push(weekdays.shift()); // Move Sunday to the end for calendar layout
 
-
+    const selectedRadio = document.querySelector('input[name="weekStart"]:checked');
+    console.log(selectedRadio.value);
+    // 
+    if (selectedRadio && selectedRadio.value === 'monday' && weekdays[0] !== "Mon") {
+        weekdays.push(weekdays.shift()); // Move Sunday to the end for calendar layout
+    } 
 
     monthsContainer.forEach(monthIndex => {
         //console.log(getMonthName(monthIndex.month)); // "January"
