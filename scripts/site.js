@@ -426,8 +426,23 @@ function getContentWidth(element) {
     // 3. Subtract padding to get raw content width
     return clientWidth - paddingLeft - paddingRight;
 }
+
+
+function mySvg(year, monthIndex, orientation, holidaysByDate, province, parentWidth, weekStart = 0) {
+
+
+    const width = orientation === 'portrait' ? 794 : 1123;
+    const height = orientation === 'portrait' ? 1123 : 794;
+    const svg = createSvg({
+        viewBox: `0 0 ${width} ${height}`,
+        style: "width: 100%; height: auto; display: block;"
+    });
+
+    return svg;
+  }
+
 // --- Draw SVG Month ---
-function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province, parentWidth,weekStart = 0) {
+function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province, parentWidth, weekStart = 0) {
     /*
         createSVGMonth
         - year: full year number (e.g., 2026)
@@ -444,6 +459,10 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
         - Uses absolute positioning; caller must attach the returned SVG to the DOM
         - Holiday text may overflow the cell; consider truncating or using tooltips
     */
+    
+    //const newsvg = mySvg(year, monthIndex, orientation, holidaysByDate, province, parentWidth, weekStart = 0);
+    //console.log(newsvg);
+
 
     const viewBox = (pw, sh, sw) => {
         console.log(pw, sh, sw);
@@ -456,17 +475,26 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
     console.log(orientation);
     const margin = 50;
     const headerHeight = 50;
+
+
+    // Here we calculate the cell dimensions based on the available width and height, minus margins and header space. 
+    // The calendar grid is 7 columns (days of the week) and 6 rows (maximum weeks in a month).
+    // We can also adjust the size of the cells and parent here.
+    const adjustedWidth = 0; // Adjusted width for the calendar grid to fit table on right.
+    const m1 = margin + adjustedWidth; // Additional margin for spacing
     const cellHeight = (height - margin * 2 - headerHeight) / 6;
-    const cellWidth = (width - margin * 2) / 7;
+    const cellWidth = (width - m1 * 2) / 7;
+
+
     const newHeight = viewBox(parentWidth, width, height);
     console.log(newHeight);
 
 
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
+    // Set the viewBox to ensure proper scaling and aspect ratio
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-    // svg.setAttribute("width", parentWidth);
-    // svg.setAttribute("height", newHeight);
+    // Set the style to make the SVG responsive
     svg.setAttribute("style", "width: 100%; height: auto; display: block;");
 
     // Month title
@@ -506,12 +534,11 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
     let firstDayRaw = new Date(year, monthIndex, 1).getDay();
     let firstDay = (firstDayRaw - weekStart + 7) % 7;
     console.log({
-        firstDayRaw:firstDayRaw,
+        firstDayRaw: firstDayRaw,
         firstDay: firstDay,
         year: year,
         monthIndex: monthIndex
     });
-    // firstDay-=1;
     const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
     let day = 1;
 
@@ -574,6 +601,37 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
         }
     }
 
+    // #region for notes section
+
+    // let lineheight = 45.5;
+    // for (let i = 0; i < 15; i++) {
+    //     let fill = i === 0 ? "black" : "none";
+    //     const line = document.createElementNS(svgNS, "line");
+    //     let x1 = 0.5 + margin + 20 + cellWidth * 7;
+    //     let y1 = 70.5 + (i * lineheight);
+    //     let x2 = x1 + 200;
+    //     let y2 = y1;
+    //     line.setAttribute("x1", x1);
+    //     line.setAttribute("y1", y1);
+    //     line.setAttribute("x2", x2);
+    //     line.setAttribute("y2", y2);
+
+    //     line.setAttribute("fill", fill);
+    //     line.setAttribute("stroke", "#000");
+    //     svg.appendChild(line);
+    // }
+
+    // const text = document.createElementNS(svgNS, "text");
+    // text.setAttribute("x", 0.5 + margin + 110 + cellWidth * 7);
+    // text.setAttribute("y", 105.5);
+    // text.setAttribute("text-anchor", "middle");
+    // text.setAttribute("fill", "white");
+    // text.setAttribute("font-size", "24");
+    // text.setAttribute("font-family", "Arial");
+    // text.textContent = "Notes";
+    // svg.appendChild(text);
+
+    // #endregion
     return svg;
 }
 
@@ -606,7 +664,7 @@ function generateCalendars(monthsContainer, orientation, holidaysByDate = {}) {
     // 
     if (selectedRadio && selectedRadio.value === 'monday' && weekdays[0] !== "Mon") {
         weekdays.push(weekdays.shift()); // Move Sunday to the end for calendar layout
-    } 
+    }
 
     monthsContainer.forEach(monthIndex => {
         //console.log(getMonthName(monthIndex.month)); // "January"
@@ -673,7 +731,6 @@ async function downloadPdf() {
         svg.setAttribute('width', svg.getAttribute('width') || ow);
         svg.setAttribute('height', svg.getAttribute('height') || oh);
 
-        console.log(svg);
         const vb = svg.getAttribute('viewBox').split(' ').map(Number);
         const svgWidth = vb[2];
         const svgHeight = vb[3];
@@ -693,6 +750,7 @@ async function downloadPdf() {
             yOffset,
             scale
         });
+        console.log(svg);
 
         if (i < svgs.length - 1) pdf.addPage();
     }
