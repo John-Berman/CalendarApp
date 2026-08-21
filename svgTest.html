@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>SVG Test</h1>
+
+    <div id="svg-container">
+
+    </div>
+
+</body>
+<script>
+    const XMLNS = "http://www.w3.org/2000/svg";
+    const XLINK = "http://www.w3.org/1999/xlink";
+
+    // Constants for node types (nodeName).
+    const GROUP = 'g';
+    const CIRCLE = 'circle';
+    const ELLIPSE = 'ellipse';
+    const PATH = 'path';
+    const DEF = 'def';
+    const TSPAN = 'tspan';
+    const TEXT = 'text';
+
+    function createSvg(args) {
+
+        const svg = document.createElementNS(XMLNS, "svg");
+        //Loop over params and add attributes to svg node.
+        for (o in args) {
+            svg.setAttributeNS(null, o, args[o]);
+        }
+        svg.setAttribute("xmlns", XMLNS);
+
+        return svg;
+    }
+
+    function createSvgLine(x1, y1, x2, y2, args) {
+
+        const line = document.createElementNS(XMLNS, "line");
+
+        // Apply 0.5px offset for crisp 1px rendering on integer pixels
+        line.setAttribute("x1", x1);
+        line.setAttribute("y1", y1);
+        line.setAttribute("x2", x2);
+        line.setAttribute("y2", y2);
+        for (a in args) {
+            line.setAttributeNS(null, a, args[a]);
+        }
+
+        return line;
+    }
+
+
+    function getRoundedRectPath(x, y, width, height, radii, args = {}) {
+        //const strokeOffset = 0.5;
+        const strokeOffset = 0;
+        const minX = x + strokeOffset;
+        const minY = y + strokeOffset;
+        const maxX = x + width - strokeOffset;
+        const maxY = y + height - strokeOffset;
+
+        // Expects a normalized 4-element array: [tl, tr, br, bl]
+        const [tl, tr, br, bl] = radii;
+
+        const d = [
+            `M ${minX + tl} ${minY}`,
+            `H ${maxX - tr}`,
+            tr ? `A ${tr} ${tr} 0 0 1 ${maxX} ${minY + tr}` : `L ${maxX} ${minY}`,
+            `V ${maxY - br}`,
+            br ? `A ${br} ${br} 0 0 1 ${maxX - br} ${maxY}` : `L ${maxX} ${maxY}`,
+            `H ${minX + bl}`,
+            bl ? `A ${bl} ${bl} 0 0 1 ${minX} ${maxY - bl}` : `L ${minX} ${maxY}`,
+            `V ${minY + tl}`,
+            tl ? `A ${tl} ${tl} 0 0 1 ${minX + tl} ${minY}` : `L ${minX} ${minY}`,
+            `Z`
+        ].join(' ');
+
+        args.d = d;
+        args["vector-effect"] = "non-scaling-stroke";
+        return createNode(args);
+    }
+
+    function rectangle(x, y, w, h, args) {
+        const d = `M ${x} ${y} l ${w} 0 l 0 ${h} l ${-w} 0 z`;
+        args.d = d;
+        return createNode(args);
+    }
+
+    function createNode(args) {
+        const node = document.createElementNS(XMLNS, "path");
+
+        if (args !== undefined) {
+            for (a in args) {
+                if (args[a] !== undefined) {
+                    node.setAttributeNS(null, a, args[a]);
+                }
+            }
+        }
+
+        return node;
+    }
+
+    function createText(x, y, content, args) {
+        const text = document.createElementNS(XMLNS, "text");
+        text.setAttribute("x", x);
+        text.setAttribute("y", y);
+
+        if (args !== undefined) {
+            for (a in args) {
+                if (args[a] !== undefined) {
+                    text.setAttributeNS(null, a, args[a]);
+                }
+            }
+        }
+        text.textContent = content;
+        return text;
+    }
+
+    function createUse(id, x, y) {
+        const use = document.createElementNS(XMLNS, "use");
+        use.setAttribute("href", `#${id}`);
+        use.setAttribute("x", String(x));
+        use.setAttribute("y", String(y));
+        return use;
+    }
+
+    /* ---------------------------------------------------------------------------- */
+
+    // Get container node to render svg
+    const container = document.getElementById("svg-container");
+    // Create the svg node
+    const svg = createSvg({
+        height: 600,
+        width: 600,
+        id: "svg-one"
+    });
+
+    const strokeWidth = '1.5px';
+    const stroke = '#666';
+    const fill = "#1654a6";
+
+    // Create radius'd header.
+    const rect = getRoundedRectPath(10, 10, 300, 50, [6, 6, 0, 0], {
+        stroke: 'none',
+        "stroke-width": strokeWidth,
+        fill: fill
+    });
+    svg.appendChild(rect);
+
+    const caption = createText(55, 45, "Goals", {
+        "text-anchor": "middle",
+        fill: "white",
+        "font-size": "24",
+        "font-family": 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        "font-weight": "bold"
+    });
+    svg.appendChild(caption);
+
+    svg.appendChild(getRoundedRectPath(10, 10, 300, 300, [6, 6, 6, 6], {
+        stroke: stroke,
+        fill: 'none',
+        "stroke-width": strokeWidth,
+    }));
+
+    svg.appendChild(createSvgLine(10, 60, 310, 60, {
+        "stroke": stroke,
+        "stroke-width": strokeWidth,
+        fill: '#fff',
+        "shape-rendering": "crispEdges"
+    }
+    ));
+
+    const square = getRoundedRectPath(0, 0, 15, 15, [3, 3, 3, 3], {
+        stroke: stroke,
+        fill: 'none',
+        "stroke-width": strokeWidth,
+        //"shape-rendering": "crispEdges",
+        id: "check-box"
+    });
+    const defs = document.createElementNS(XMLNS, "defs");
+    defs.appendChild(square);
+
+    svg.appendChild(defs);
+
+    for (let i = 0; i < 5; i += 1) {
+        let h = 45;
+        let y = i * h + 105;
+        let x = 50;
+        let w = 280;
+        svg.appendChild(createSvgLine(x, y, w, y, {
+            "stroke": stroke,
+            "stroke-width": strokeWidth,
+            "shape-rendering": "crispEdges"
+        }
+        ));
+
+        svg.appendChild(createUse("check-box", 25, y - 14));
+    }
+
+    container.appendChild(svg);
+
+</script>
+
+</html>

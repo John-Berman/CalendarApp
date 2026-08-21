@@ -560,6 +560,7 @@ function createSVGMonth(year, monthIndex, orientation, holidaysByDate, province,
             rect.setAttribute("height", cellHeight);
             rect.setAttribute("fill", isBlank ? "#eee" : "#fff");
             rect.setAttribute("stroke", "black");
+            rect.setAttribute("shape-rendering", "crispEdges");
             svg.appendChild(rect);
 
             if (!isBlank) {
